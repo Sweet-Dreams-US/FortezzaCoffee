@@ -28,12 +28,30 @@
 </nav>
 
 <header class="page-header">
+  <div class="tricolor" style="position: absolute; top: 0; left: 0; right: 0;"><span></span><span></span><span></span></div>
   <div class="wrap">
-    <span class="eyebrow" data-reveal>Section 03 — La Storia</span>
+    <span class="eyebrow" data-reveal>Capitolo III — La Storia</span>
     <h1 class="h-mega mt-4" data-reveal data-delay="1">A bit of <br /><span class="editorial text-crema-deep">Italy.</span></h1>
     <p class="lead mt-6" data-reveal data-delay="2" style="max-width: 65ch;">
-      How Marco &amp; Sofia Castelli turned a brick storefront on East Berry into Fort Wayne's heraldic Italian café — the first to pull Caffè Vergnano in Indiana, and a small fortezza in the heart of historic Ke-Ki On-Ga.
+      How Marco &amp; Sofia Castelli turned a brick storefront on East Berry into Fort Wayne's heraldic Italian café — the first to pull Caffè Vergnano in Indiana, and a small <em class="editorial">fortezza</em> in the heart of historic Ke-Ki On-Ga.
     </p>
+    <div class="stamp-cluster mt-8" data-reveal data-delay="3">
+      <div class="stamp">
+        <div>Anno</div>
+        <span class="stamp-big">MMXXVI</span>
+        <div>Est. · FW</div>
+      </div>
+      <div class="stamp stamp-blu">
+        <div>Caffè</div>
+        <span class="stamp-big">Vergnano</span>
+        <div>Torino · 1882</div>
+      </div>
+      <div class="stamp stamp-gold">
+        <div>Tre</div>
+        <span class="stamp-big">Fiumi</span>
+        <div>Ke-Ki On-Ga</div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -45,11 +63,14 @@
         <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=1200&q=85" alt="Cafe owners" loading="lazy" />
       </div>
       <div>
-        <span class="eyebrow" data-reveal>001 — The Founders</span>
-        <h2 class="h-2 mt-4" data-reveal data-delay="1">
+        <div class="flex items-center gap-4" data-reveal style="flex-wrap: wrap;">
+          <div class="roman">I</div>
+          <span class="eyebrow">The Founders</span>
+        </div>
+        <h2 class="h-2 mt-6" data-reveal data-delay="1">
           Marco &amp; Sofia <span class="editorial text-crema-deep">Castelli.</span>
         </h2>
-        <p class="lead mt-5" data-reveal data-delay="2" style="font-size: 1.1rem;">
+        <p class="lead mt-5 dropcap" data-reveal data-delay="2" style="font-size: 1.1rem;">
           Marco grew up in Turin, where coffee isn't a transaction — it's the punctuation between every part of the day. Sofia, raised between Naples and Bologna, came of age in pastry kitchens. Together they decided Fort Wayne deserved a real Italian café — something with weight.
         </p>
         <p class="text-soft mt-4" style="font-size: 1rem; line-height: 1.7;" data-reveal data-delay="3">
@@ -60,105 +81,151 @@
   </div>
 </section>
 
-<!-- KE-KI ON-GA EXPLAINER -->
-<section class="section section-tight" style="background: var(--bg-1); border-block: 1px solid var(--border);">
-  <div class="wrap">
-    <div class="grid-12" style="gap: var(--gutter);">
+<!-- KE-KI ON-GA EXPLAINER with three-rivers SVG decoration -->
+<section class="section section-tight" style="background: var(--bg-1); border-block: 1px solid var(--border); position: relative; overflow: hidden;">
+  <!-- Decorative three-rivers curves background -->
+  <svg style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.10; pointer-events: none;" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M -50,80 Q 300,-30 600,90 T 1250,70" fill="none" stroke="var(--blu)" stroke-width="3"/>
+    <path d="M -50,180 Q 300,80 600,200 T 1250,160" fill="none" stroke="var(--rosso)" stroke-width="3"/>
+    <path d="M -50,300 Q 300,180 600,320 T 1250,280" fill="none" stroke="var(--gold)" stroke-width="3"/>
+  </svg>
+  <div class="wrap" style="position: relative; z-index: 2;">
+    <div class="grid-12" style="gap: var(--gutter); align-items: center;">
       <div style="grid-column: 1 / span 4;" data-reveal>
         <span class="eyebrow">A Place Name</span>
-        <h2 class="h-3 mt-4" style="text-transform: none;">Why <em class="editorial text-crema-deep">"Ke-Ki On-Ga"</em>?</h2>
+        <h2 class="h-2 mt-4" style="text-transform: none; line-height: 1;">Why <br /><em class="editorial text-crema-deep">Ke-Ki On-Ga</em>?</h2>
+        <div class="heraldic-rule" style="justify-content: flex-start; margin-block: var(--s-5);">
+          <div class="diamond"></div>
+        </div>
       </div>
       <div style="grid-column: 5 / -1;" data-reveal data-delay="1">
-        <p class="text-soft" style="line-height: 1.75; font-size: 1.05rem;">
-          Long before it was Fort Wayne, the Miami people called this place <em class="editorial" style="color: var(--rosso);">Ke-Ki On-Ga</em> — the village at the meeting of three rivers. It was a center of trade, defense, and welcome. A natural fortress.
+        <p class="text-soft" style="line-height: 1.75; font-size: 1.1rem;">
+          Long before it was Fort Wayne, the Miami people called this place <strong style="color: var(--rosso); font-weight: 600;">Ke-Ki On-Ga</strong> — the village at the meeting of <em class="editorial">three rivers</em>: the St. Joseph, the St. Marys, and the Maumee. It was a center of trade, defense, and welcome. A natural fortress.
         </p>
-        <p class="text-soft mt-4" style="line-height: 1.75; font-size: 1.05rem;">
+        <p class="text-soft mt-4" style="line-height: 1.75; font-size: 1.1rem;">
           We named our café <em class="editorial">Fortezza</em> for the same reason — and we honor the older name on every cup, every menu, every door. <em class="editorial">Ke-Ki On-Ga</em> is the soul of the place we get to call home.
         </p>
+        <div class="flex gap-6 mt-8" style="flex-wrap: wrap; padding-top: var(--s-5); border-top: 1px solid var(--border);">
+          <div>
+            <div class="mono text-rosso">St. Joseph</div>
+            <div style="font-family: var(--font-editorial); font-style: italic; font-size: 1.1rem; margin-top: 4px;">From the north</div>
+          </div>
+          <div>
+            <div class="mono text-rosso">St. Marys</div>
+            <div style="font-family: var(--font-editorial); font-style: italic; font-size: 1.1rem; margin-top: 4px;">From the south</div>
+          </div>
+          <div>
+            <div class="mono text-rosso">Maumee</div>
+            <div style="font-family: var(--font-editorial); font-style: italic; font-size: 1.1rem; margin-top: 4px;">East to Lake Erie</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TIMELINE / EDITORIAL SPREAD — espresso (now navy) for visual punctuation -->
-<section class="section section-espresso">
+<!-- MOTTO BAR -->
+<section class="motto-bar">
   <div class="wrap">
+    <p class="motto-text">
+      "<strong>Tre fiumi, una fortezza.</strong>"
+    </p>
+    <p class="motto-trans">— Three rivers, one fortress —</p>
+  </div>
+</section>
+
+<!-- TIMELINE / FOUR CHAPTERS — heraldic numbered, navy section with chevron flourishes -->
+<section class="section section-espresso crenel-top crenel-rosso" style="position: relative; overflow: hidden;">
+  <!-- Decorative chevron stripes in corners -->
+  <div style="position: absolute; top: 40px; right: -100px; width: 320px; height: 320px; background: repeating-linear-gradient(135deg, var(--gold) 0, var(--gold) 8px, transparent 8px, transparent 24px); opacity: 0.10; pointer-events: none; rotate: 8deg;"></div>
+  <div style="position: absolute; bottom: 40px; left: -100px; width: 320px; height: 320px; background: repeating-linear-gradient(45deg, var(--rosso) 0, var(--rosso) 8px, transparent 8px, transparent 24px); opacity: 0.18; pointer-events: none; rotate: -6deg;"></div>
+
+  <div class="wrap" style="position: relative; z-index: 2;">
     <div data-reveal>
-      <span class="eyebrow">002 — How We Got Here</span>
+      <span class="eyebrow">II — How We Got Here</span>
       <h2 class="h-1 mt-4">From Turin.<br /><span class="editorial text-crema-deep">To East Berry.</span></h2>
     </div>
 
     <div class="grid grid-2 mt-8" style="gap: var(--s-8);">
-      <div data-reveal>
-        <div class="mono text-rosso">— Chapter One —</div>
-        <h3 class="h-3 mt-4">Italy.</h3>
+      <div data-reveal style="position: relative; padding-left: calc(64px + var(--s-5));">
+        <div class="roman" style="position: absolute; left: 0; top: 0;">I</div>
+        <div class="mono" style="color: var(--gold); letter-spacing: 0.28em;">— Capitolo I · Italia —</div>
+        <h3 class="h-3 mt-4">A boy in Torino.</h3>
         <p class="text-soft mt-4" style="line-height: 1.75;">
           Marco's family ran an espresso bar in the Piedmont — the same neighborhood where Caffè Vergnano was founded in 1882. He learned to pull a shot at twelve, and never stopped. Sofia trained as a pastry chef in Naples, where dough is folded the way her grandmothers taught.
         </p>
       </div>
-      <div data-reveal data-delay="1">
-        <div class="mono text-rosso">— Chapter Two —</div>
-        <h3 class="h-3 mt-4">America.</h3>
+      <div data-reveal data-delay="1" style="position: relative; padding-left: calc(64px + var(--s-5));">
+        <div class="roman" style="position: absolute; left: 0; top: 0;">II</div>
+        <div class="mono" style="color: var(--gold); letter-spacing: 0.28em;">— Capitolo II · America —</div>
+        <h3 class="h-3 mt-4">The Midwest.</h3>
         <p class="text-soft mt-4" style="line-height: 1.75;">
-          They moved to the Midwest, raised two boys, ran restaurant kitchens. Every drip-machine cup of coffee was a small disappointment. They started talking about <em class="editorial">how it should be</em>, and one day stopped just talking.
+          They moved here, raised two boys, ran restaurant kitchens. Every drip-machine cup of coffee was a small disappointment. They started talking about <em class="editorial">how it should be</em>, and one day stopped just talking.
         </p>
       </div>
-      <div data-reveal>
-        <div class="mono text-rosso">— Chapter Three —</div>
+      <div data-reveal style="position: relative; padding-left: calc(64px + var(--s-5));">
+        <div class="roman" style="position: absolute; left: 0; top: 0;">III</div>
+        <div class="mono" style="color: var(--gold); letter-spacing: 0.28em;">— Capitolo III · I Chicchi —</div>
         <h3 class="h-3 mt-4">The Beans.</h3>
         <p class="text-soft mt-4" style="line-height: 1.75;">
           They went hunting for the right roaster. Caffè Vergnano — the same Turin family that had filled Marco's nonno's cup since 1882 — agreed to ship to Indiana. Fortezza became the first café in Fort Wayne to pour it.
         </p>
       </div>
-      <div data-reveal data-delay="1">
-        <div class="mono text-rosso">— Chapter Four —</div>
+      <div data-reveal data-delay="1" style="position: relative; padding-left: calc(64px + var(--s-5));">
+        <div class="roman" style="position: absolute; left: 0; top: 0;">IV</div>
+        <div class="mono" style="color: var(--gold); letter-spacing: 0.28em;">— Capitolo IV · La Fortezza —</div>
         <h3 class="h-3 mt-4">The Fortress.</h3>
         <p class="text-soft mt-4" style="line-height: 1.75;">
-          They found a brick storefront on East Berry — heart of downtown Fort Wayne, walking distance from the Old Fort. Painted it warm, hung the cavaliere on horseback above the door, fired up a lever espresso machine, and opened. The line on the second day told them they'd done it right.
+          A brick storefront on East Berry — heart of downtown, walking distance from the Old Fort. Painted it warm, hung the cavaliere above the door, fired up a lever machine, opened the door. The line on day two told them they'd done it right.
         </p>
       </div>
     </div>
   </div>
+
+  <div class="tricolor" style="position: absolute; bottom: 0; left: 0; right: 0;"><span></span><span></span><span></span></div>
 </section>
 
-<!-- VALUES -->
+<!-- VALUES — six shield cards (heraldic clip-path) -->
 <section class="section">
   <div class="wrap">
-    <div data-reveal>
-      <span class="eyebrow">003 — How We Run It</span>
-      <h2 class="h-1 mt-4">Six things <br /><span class="editorial text-crema-deep">we don't compromise on.</span></h2>
+    <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: var(--s-6);" data-reveal>
+      <div>
+        <span class="eyebrow">III — Sei Principi</span>
+        <h2 class="h-1 mt-4">Six things <br /><span class="editorial text-crema-deep">we don't compromise on.</span></h2>
+      </div>
+      <p class="anno-mark">— Codex Castelli —</p>
     </div>
 
-    <div class="grid grid-3 mt-8" style="gap: var(--s-5);">
-      <div class="card" data-reveal>
-        <div class="mono text-rosso">/01</div>
-        <h3 class="h-4 mt-4">Real espresso.</h3>
-        <p class="text-soft mt-4">Pulled fresh, every cup. No automatic super-machines. No pre-ground hoppers sitting all morning.</p>
+    <div class="grid grid-3 mt-8" style="gap: var(--s-6);">
+      <div class="shield-card" data-reveal>
+        <div class="shield-num">I</div>
+        <h3 class="h-4">Real espresso.</h3>
+        <p class="text-soft mt-3">Pulled fresh, every cup. No automatic super-machines. No pre-ground hoppers sitting all morning.</p>
       </div>
-      <div class="card" data-reveal data-delay="1">
-        <div class="mono text-rosso">/02</div>
-        <h3 class="h-4 mt-4">Real ingredients.</h3>
-        <p class="text-soft mt-4">Whole milk that tastes like milk. Italian flour. Sicilian pistachios. Things you can pronounce.</p>
+      <div class="shield-card" data-reveal data-delay="1">
+        <div class="shield-num">II</div>
+        <h3 class="h-4">Real ingredients.</h3>
+        <p class="text-soft mt-3">Whole milk that tastes like milk. Italian flour. Sicilian pistachios. Things you can pronounce.</p>
       </div>
-      <div class="card" data-reveal data-delay="2">
-        <div class="mono text-rosso">/03</div>
-        <h3 class="h-4 mt-4">Real time.</h3>
-        <p class="text-soft mt-4">A pour-over takes five minutes. A cannolo is filled to order. We won't rush the things that matter.</p>
+      <div class="shield-card" data-reveal data-delay="2">
+        <div class="shield-num">III</div>
+        <h3 class="h-4">Real time.</h3>
+        <p class="text-soft mt-3">A pour-over takes five minutes. A cannolo is filled to order. We won't rush the things that matter.</p>
       </div>
-      <div class="card" data-reveal>
-        <div class="mono text-rosso">/04</div>
-        <h3 class="h-4 mt-4">Real welcome.</h3>
-        <p class="text-soft mt-4">We greet every person who walks in. By name when we know it. By eye contact when we don't.</p>
+      <div class="shield-card" data-reveal>
+        <div class="shield-num">IV</div>
+        <h3 class="h-4">Real welcome.</h3>
+        <p class="text-soft mt-3">We greet every person who walks in. By name when we know it. By eye contact when we don't.</p>
       </div>
-      <div class="card" data-reveal data-delay="1">
-        <div class="mono text-rosso">/05</div>
-        <h3 class="h-4 mt-4">Local ties.</h3>
-        <p class="text-soft mt-4">Pastries from a Naples-trained baker downtown. Granola from a Fort Wayne kitchen. Honey from down the road.</p>
+      <div class="shield-card" data-reveal data-delay="1">
+        <div class="shield-num">V</div>
+        <h3 class="h-4">Local ties.</h3>
+        <p class="text-soft mt-3">Pastries from a Naples-trained baker downtown. Granola from a Fort Wayne kitchen. Honey from down the road.</p>
       </div>
-      <div class="card" data-reveal data-delay="2">
-        <div class="mono text-rosso">/06</div>
-        <h3 class="h-4 mt-4">Reasonable prices.</h3>
-        <p class="text-soft mt-4">A great cappuccino shouldn't cost $9. We price like Italians — for everyday, not for tourists.</p>
+      <div class="shield-card" data-reveal data-delay="2">
+        <div class="shield-num">VI</div>
+        <h3 class="h-4">Reasonable prices.</h3>
+        <p class="text-soft mt-3">A great cappuccino shouldn't cost $9. We price like Italians — for everyday, not for tourists.</p>
       </div>
     </div>
   </div>

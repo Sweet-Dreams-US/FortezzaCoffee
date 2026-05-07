@@ -28,12 +28,22 @@
 </nav>
 
 <header class="page-header">
+  <div class="tricolor" style="position: absolute; top: 0; left: 0; right: 0;"><span></span><span></span><span></span></div>
   <div class="wrap">
-    <span class="eyebrow" data-reveal>Section 02 — La Carta</span>
+    <span class="eyebrow" data-reveal>Capitolo II — La Carta</span>
     <h1 class="h-mega mt-4" data-reveal data-delay="1">The<br /><span class="editorial text-crema-deep">menu.</span></h1>
     <p class="lead mt-6" data-reveal data-delay="2" style="max-width: 65ch;">
       Everything we serve. Espresso pulled on a traditional lever machine, gelato churned in-house, panini pressed under cast iron, dolci from a small Naples-trained bakery. <em class="editorial">Niente di fretta.</em> Nothing rushed.
     </p>
+    <!-- Section navigation as heraldic Roman-numbered chips -->
+    <div class="flex gap-3 mt-8" data-reveal data-delay="3" style="flex-wrap: wrap;">
+      <a href="#espresso" class="mono" style="border: 1px solid var(--rosso); color: var(--rosso); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">I · Caffè</a>
+      <a href="#brew-tea" class="mono" style="border: 1px solid var(--blu); color: var(--blu); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">II · Brew &amp; Tea</a>
+      <a href="#waffles" class="mono" style="border: 1px solid var(--rosso); color: var(--rosso); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">III · Gelato</a>
+      <a href="#savory" class="mono" style="border: 1px solid var(--blu); color: var(--blu); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">IV · Panini</a>
+      <a href="#dolci" class="mono" style="border: 1px solid var(--rosso); color: var(--rosso); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">V · Dolci</a>
+      <a href="#beans" class="mono" style="border: 1px solid var(--blu); color: var(--blu); padding: 0.5rem 0.9rem; transition: all var(--dur-fast);">VI · Beans</a>
+    </div>
   </div>
 </header>
 
@@ -42,7 +52,7 @@
   <div class="wrap">
     <div class="grid-12" style="gap: var(--gutter);">
       <div style="grid-column: 1 / span 4;" data-reveal>
-        <span class="eyebrow">001 — Espresso</span>
+        <span class="eyebrow">I — Espresso</span>
         <h2 class="h-2 mt-4">Caffè <span class="editorial text-crema-deep">della casa.</span></h2>
         <p class="text-soft mt-6" style="line-height: 1.7;">Pulled fresh from a traditional Italian lever machine. Caffè Vergnano beans from Turin. Served in a warm porcelain cup.</p>
       </div>
@@ -127,7 +137,7 @@
   <div class="wrap">
     <div class="grid-12" style="gap: var(--gutter);">
       <div style="grid-column: 1 / span 4;" data-reveal>
-        <span class="eyebrow">002 — Brew &amp; Tea</span>
+        <span class="eyebrow">II — Brew &amp; Tea</span>
         <h2 class="h-2 mt-4">Slow <span class="editorial text-crema-deep">drip.</span></h2>
         <p class="text-soft mt-6" style="line-height: 1.7;">For when you've got time. Pour-over, drip, cold brew, and loose-leaf tea — all worth the wait.</p>
       </div>
@@ -174,7 +184,7 @@
   <div class="wrap">
     <div class="grid-12" style="gap: var(--gutter);">
       <div style="grid-column: 1 / span 4;" data-reveal>
-        <span class="eyebrow">003 — Gelato</span>
+        <span class="eyebrow">III — Gelato</span>
         <h2 class="h-2 mt-4">Gelato <span class="editorial text-crema-deep">artigianale.</span></h2>
         <p class="text-soft mt-6" style="line-height: 1.7;">Made in-house, weekly. Less fat, more flavor than American ice cream. Served in a coppa or cone — or affogato'd in espresso.</p>
       </div>
@@ -221,7 +231,7 @@
   <div class="wrap">
     <div class="grid-12" style="gap: var(--gutter);">
       <div style="grid-column: 1 / span 4;" data-reveal>
-        <span class="eyebrow">004 — Savory</span>
+        <span class="eyebrow">IV — Savory</span>
         <h2 class="h-2 mt-4">Panini <span class="editorial text-crema-deep">&amp; bowls.</span></h2>
         <p class="text-soft mt-6" style="line-height: 1.7;">Pressed under cast iron until the cheese gives. Bowls built around what's good this week.</p>
       </div>
@@ -264,7 +274,7 @@
   <div class="wrap">
     <div class="grid-12" style="gap: var(--gutter);">
       <div style="grid-column: 1 / span 4;" data-reveal>
-        <span class="eyebrow">005 — Dolci</span>
+        <span class="eyebrow">V — Dolci</span>
         <h2 class="h-2 mt-4">From the <span class="editorial text-crema-deep">case.</span></h2>
         <p class="text-soft mt-6" style="line-height: 1.7;">Italian pastries, baked daily. Ask what just came out of the oven — the answer is usually the right one.</p>
       </div>
@@ -307,8 +317,15 @@
   <div class="wrap">
     <div class="grid-12" style="align-items: center; gap: var(--s-9);">
       <div style="grid-column: 1 / span 6;" data-reveal>
-        <span class="eyebrow">006 — Take Home</span>
+        <span class="eyebrow">VI — Take Home</span>
         <h2 class="h-1 mt-4">Vergnano by the <span class="editorial text-crema-deep">bag.</span></h2>
+        <div class="stamp-cluster mt-6">
+          <div class="stamp" style="background: rgba(252, 250, 244, 0.95); border-color: var(--cream); color: var(--rosso);">
+            <div>Caffè</div>
+            <span class="stamp-big" style="color: var(--rosso);">1882</span>
+            <div>Torino</div>
+          </div>
+        </div>
         <p class="lead mt-6">
           Brew it tomorrow. Whole bean or ground for your machine, brewer, or moka pot. Three blends in stock — ask the barista which is right for your setup.
         </p>
