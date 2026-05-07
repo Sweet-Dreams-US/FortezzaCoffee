@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fortezza Coffee — Italian Espresso & Heritage in Fort Wayne (Ke-Ki On-Ga)</title>
+<meta name="description" content="A heraldic Italian café in downtown Fort Wayne. Caffè Vergnano espresso from Turin, hand-pressed panini, dolci from Naples. Marco & Sofia Castelli — il caffè della fortezza." />
+<meta property="og:title" content="Fortezza Coffee — Fort Wayne's Italian Stronghold" />
+<meta property="og:description" content="Caffè Vergnano espresso, Italian dolci, and a heraldic welcome. 215 E Berry St, Fort Wayne — the heart of Ke-Ki On-Ga." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Manrope:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles/globals.css" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-brand">FORTEZZA</a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html" class="nav-link" aria-current="page">Home</a>
+    <a href="menu.html" class="nav-link">Menu</a>
+    <a href="story.html" class="nav-link">Story</a>
+    <a href="visit.html" class="nav-link">Visit</a>
+  </div>
+  <a href="menu.html" class="nav-cta">Order Online <span aria-hidden="true">→</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2400&q=85" alt="Italian espresso pour" loading="eager" />
+  </div>
+
+  <div class="wrap" style="position:relative; z-index:2; flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding-bottom:8rem; padding-top:10rem;">
+    <div style="max-width: 1200px;">
+      <div class="eyebrow fade-up" style="animation-delay:0.2s; color: var(--surface);">
+        <span style="background: var(--rosso); height: 1px; width: 28px; display: inline-block;"></span>
+        Fort Wayne, Indiana &nbsp;/&nbsp; Ke-Ki On-Ga &nbsp;/&nbsp; 215 E Berry St
+      </div>
+      <div class="fade-up" style="margin-top: 1.5rem; animation-delay:0.4s;">
+        <div class="editorial" style="font-size: clamp(2rem, 5vw, 3.6rem); color: var(--crema); font-style: italic; margin-bottom: 0.5rem; line-height: 1;">il caffè della fortezza</div>
+        <h1 class="logo-lockup" style="font-size: clamp(4.5rem, 14vw, 14rem); margin: 0;">
+          <span class="logo-fortezza">Fortezza</span>
+          <span class="logo-kekionga" style="color: var(--cream);">Ke-Ki On-Ga · Coffee</span>
+        </h1>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--gutter); align-items:end; margin-top: 4rem;" class="hero-bottom">
+      <p class="lead fade-up" style="animation-delay:0.7s; color: var(--bg);">
+        A heraldic Italian café in the heart of downtown Fort Wayne — the city the Miami called <em class="editorial">Ke-Ki On-Ga</em>. Marco &amp; Sofia Castelli pour <span class="editorial text-crema" style="font-size:1.15em;">Caffè Vergnano</span> — Turin's oldest roaster, since 1882 — under the watch of the cavaliere.
+      </p>
+      <div class="fade-up flex gap-4" style="animation-delay:0.9s; justify-self:end; flex-wrap:wrap;">
+        <a href="menu.html" class="btn btn-primary btn-arrow">See the Menu</a>
+        <a href="visit.html" class="btn btn-arrow" style="color: var(--surface); border-color: var(--surface);">Find the Fortezza</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">Scroll</div>
+</header>
+
+<!-- MARQUEE -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Espresso</span>
+    <span class="marquee-item italic-item">Cavaliere</span>
+    <span class="marquee-item">Cappuccino</span>
+    <span class="marquee-item italic-item">Dolci</span>
+    <span class="marquee-item">Affogato</span>
+    <span class="marquee-item italic-item">Fortezza</span>
+    <span class="marquee-item">Espresso</span>
+    <span class="marquee-item italic-item">Ke-Ki On-Ga</span>
+    <span class="marquee-item">Cappuccino</span>
+    <span class="marquee-item italic-item">Vergnano</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="marquee-item">Espresso</span>
+    <span class="marquee-item italic-item">Cavaliere</span>
+    <span class="marquee-item">Cappuccino</span>
+    <span class="marquee-item italic-item">Dolci</span>
+    <span class="marquee-item">Affogato</span>
+    <span class="marquee-item italic-item">Fortezza</span>
+  </div>
+</section>
+
+<!-- MISSION / EDITORIAL SPREAD -->
+<section class="section">
+  <div class="wrap">
+    <div class="grid-12">
+      <div style="grid-column: 1 / span 4;" data-reveal>
+        <span class="eyebrow">001 — La Filosofia</span>
+      </div>
+      <div style="grid-column: 5 / -1;">
+        <h2 class="h-1" data-reveal>
+          A cup of coffee, <br /><span class="editorial text-crema-deep">poured with honor.</span>
+        </h2>
+        <p class="lead mt-8" data-reveal data-delay="2">
+          When Marco &amp; Sofia Castelli opened Fortezza, they wanted Fort Wayne — Ke-Ki On-Ga, the old confluence — to feel what they grew up with in Northern Italy. A café where the barista knows your name, where coffee is poured slowly and savored. Not fuel. <em class="editorial">A small ceremony.</em>
+        </p>
+        <div class="mt-8" data-reveal data-delay="3">
+          <a href="story.html" class="btn btn-rosso btn-arrow">Read Their Story</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS — Coffee / Dolci / Welcome -->
+<section class="section" style="background: var(--bg-1); border-block: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="flex justify-between items-center" style="margin-bottom: 5rem; flex-wrap:wrap; gap: var(--s-6);" data-reveal>
+      <div>
+        <span class="eyebrow">002 — What We Pour</span>
+        <h2 class="h-2 mt-4">Three things.<br /><span class="editorial text-crema-deep">Done the old way.</span></h2>
+      </div>
+      <p class="text-dim mono">01 — Caffè &nbsp;·&nbsp; 02 — Dolci &nbsp;·&nbsp; 03 — Benvenuti</p>
+    </div>
+
+    <div class="grid grid-3" style="gap: 0; border: 1px solid var(--border);">
+      <!-- Coffee -->
+      <article class="pillar" data-reveal>
+        <div class="pillar-num mono">/01</div>
+        <div class="pillar-image">
+          <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=900&q=85" alt="Espresso shot pulling" loading="lazy" />
+        </div>
+        <div class="pillar-body">
+          <h3 class="h-3"><span class="text-rosso">Caffè</span> Vergnano.</h3>
+          <p class="text-soft mt-4">We pour <em class="editorial">Caffè Vergnano</em> — Turin's oldest roaster, founded in 1882. Pulled on a traditional lever machine, the way Marco's nonno taught him in the Piedmont.</p>
+          <ul class="pillar-list mt-6">
+            <li>Espresso · Macchiato · Cortado</li>
+            <li>Cappuccino · Flat White · Latte</li>
+            <li>Affogato · Iced Shakerato</li>
+            <li>Drip · Pour-over · Cold Brew</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Dolci -->
+      <article class="pillar" data-reveal data-delay="2">
+        <div class="pillar-num mono">/02</div>
+        <div class="pillar-image">
+          <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=85" alt="Italian pastries on display" loading="lazy" />
+        </div>
+        <div class="pillar-body">
+          <h3 class="h-3"><span class="text-crema-deep">Dolci</span> Italiani.</h3>
+          <p class="text-soft mt-4">Sfogliatelle from a Naples-trained baker. Cornetti baked at 5am. Tiramisù in a coppa. Cannoli filled to order — no soggy shells, no shortcuts.</p>
+          <ul class="pillar-list mt-6">
+            <li>Cornetto — Italian croissant</li>
+            <li>Sfogliatella — Naples pastry</li>
+            <li>Cannolo Siciliano — filled fresh</li>
+            <li>Tiramisù &amp; biscotti</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Welcome -->
+      <article class="pillar" data-reveal data-delay="3">
+        <div class="pillar-num mono">/03</div>
+        <div class="pillar-image">
+          <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=900&q=85" alt="Cozy cafe interior" loading="lazy" />
+        </div>
+        <div class="pillar-body">
+          <h3 class="h-3"><span class="text-espresso">Benvenuti</span>.</h3>
+          <p class="text-soft mt-4">A small fortress of warm light and worn wood. We greet every guest. Bring your laptop. Bring your kids. Bring your father-in-law. We've got you a table.</p>
+          <ul class="pillar-list mt-6">
+            <li>Free Wi-Fi · plenty of outlets</li>
+            <li>Sidewalk patio in season</li>
+            <li>Dog-friendly outside</li>
+            <li>Curbside &amp; pickup orders</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- LARGE STATEMENT -->
+<section class="section">
+  <div class="wrap center" style="max-width: 1100px;">
+    <p class="editorial" style="font-size: clamp(1.5rem, 3vw, 2.6rem); color: var(--text-soft); line-height:1.4;" data-reveal>
+      "Quando entri qui — <br />sei nella fortezza." <br />
+      <span class="mono text-faint" style="font-size: 0.45em; letter-spacing: 0.2em; display: inline-block; margin-top: 1.2rem;">— When you walk in, you're in the fortress.</span>
+    </p>
+    <div class="mono mt-6 text-faint" data-reveal data-delay="1">— Sofia Castelli, Co-founder</div>
+  </div>
+</section>
+
+<!-- VERGNANO / FEATURE STORY — side-by-side spread, stacks cleanly on mobile -->
+<section class="section" style="background: var(--bg-2); border-block: 1px solid var(--border); position: relative; overflow: hidden; padding: clamp(3rem, 7vw, 6rem) 0;">
+  <div class="wrap">
+    <div class="feature-spread">
+      <div class="feature-img" data-reveal>
+        <img src="https://images.unsplash.com/photo-1442550528053-c431ecb55509?auto=format&fit=crop&w=1200&q=85" alt="Caffè Vergnano espresso, Turin" loading="lazy" />
+        <div class="mono" style="position: absolute; top: -1px; left: 16px; background: var(--bg-2); padding: 4px 10px; color: var(--rosso); transform: translateY(-50%);">— Torino, 1882 —</div>
+      </div>
+      <div>
+        <span class="eyebrow" data-reveal>003 — The Beans</span>
+        <h2 class="h-2 mt-4" data-reveal data-delay="1">
+          From Turin.<br /><span class="editorial text-crema-deep">To East Berry.</span>
+        </h2>
+        <p class="lead mt-5" data-reveal data-delay="2" style="font-size: 1.1rem;">
+          The Vergnano family has been roasting in Turin since 1882 — perfected in the espresso bars of the Piedmont, where coffee is poured fast and pulled correctly. We're proud to bring it to Ke-Ki On-Ga.
+        </p>
+        <div class="grid grid-2 mt-6" style="gap: var(--s-5);" data-reveal data-delay="3">
+          <div>
+            <div class="mono text-rosso">Origin</div>
+            <p class="mt-2" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.2rem;">Turin, Italy</p>
+          </div>
+          <div>
+            <div class="mono text-rosso">Family Owned</div>
+            <p class="mt-2" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.2rem;">Since 1882</p>
+          </div>
+          <div>
+            <div class="mono text-rosso">Roast</div>
+            <p class="mt-2" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.2rem;">Medium-dark</p>
+          </div>
+          <div>
+            <div class="mono text-rosso">Tradition</div>
+            <p class="mt-2" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.2rem;">Four generations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="section">
+  <div class="wrap">
+    <div data-reveal>
+      <span class="eyebrow">004 — Inside the Fortezza</span>
+      <h2 class="h-1 mt-4">What you'll find. <br /><span class="editorial text-crema-deep">All day, every day.</span></h2>
+    </div>
+
+    <div class="grid grid-4 mt-8 inside-grid">
+      <div class="inside-card" data-reveal>
+        <div class="inside-num">01</div>
+        <h4 class="h-4">Espresso Bar</h4>
+        <p class="text-soft">Single, double, ristretto. Pulled on demand and served in a warm porcelain cup.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="1">
+        <div class="inside-num">02</div>
+        <h4 class="h-4">Pastry Case</h4>
+        <p class="text-soft">Cornetti, sfogliatelle, cannoli, biscotti, tiramisù. Made fresh — never frozen, never reheated.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="2">
+        <div class="inside-num">03</div>
+        <h4 class="h-4">Panini Press</h4>
+        <p class="text-soft">Prosciutto &amp; mozzarella, caprese, breakfast egg-and-pancetta on warm focaccia.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="3">
+        <div class="inside-num">04</div>
+        <h4 class="h-4">Gelato Bar</h4>
+        <p class="text-soft">Twelve flavors made in-house weekly — pistachio, stracciatella, fior di latte, espresso.</p>
+      </div>
+      <div class="inside-card" data-reveal>
+        <div class="inside-num">05</div>
+        <h4 class="h-4">Drip + Cold Brew</h4>
+        <p class="text-soft">Two daily roasts and a 24-hour cold brew. Iced espresso tonics in summer.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="1">
+        <div class="inside-num">06</div>
+        <h4 class="h-4">Tea Selection</h4>
+        <p class="text-soft">Loose-leaf English breakfast, earl grey, chamomile, matcha, chai.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="2">
+        <div class="inside-num">07</div>
+        <h4 class="h-4">Free Wi-Fi</h4>
+        <p class="text-soft">Strong signal, plenty of outlets. Stay an hour. Stay all afternoon.</p>
+      </div>
+      <div class="inside-card" data-reveal data-delay="3">
+        <div class="inside-num">08</div>
+        <h4 class="h-4">Beans to Go</h4>
+        <p class="text-soft">Take Vergnano home. Whole bean or ground for your machine, brewer, or moka pot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS / NUMBERS -->
+<section class="section section-tight" style="background: var(--bg-1); border-block: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="grid grid-4 stats-grid">
+      <div data-reveal>
+        <div class="display text-rosso" style="font-size: clamp(4rem, 8vw, 7rem); line-height: 0.9;">4.9<span style="color: var(--text-faint);">★</span></div>
+        <div class="mono text-dim mt-3">Google Rating · 184 Reviews</div>
+      </div>
+      <div data-reveal data-delay="1">
+        <div class="display text-rosso" style="font-size: clamp(4rem, 8vw, 7rem); line-height: 0.9;">1882</div>
+        <div class="mono text-dim mt-3">Vergnano Roasting in Turin</div>
+      </div>
+      <div data-reveal data-delay="2">
+        <div class="display text-rosso" style="font-size: clamp(4rem, 8vw, 7rem); line-height: 0.9;">#1</div>
+        <div class="mono text-dim mt-3">Italian Café in Fort Wayne</div>
+      </div>
+      <div data-reveal data-delay="3">
+        <div class="display text-rosso" style="font-size: clamp(4rem, 8vw, 7rem); line-height: 0.9;">12</div>
+        <div class="mono text-dim mt-3">Gelato Flavors in Rotation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal>005 — What Fort Wayne Says</span>
+    <div class="grid grid-3 mt-8">
+      <blockquote class="quote-card" data-reveal>
+        <p class="editorial" style="font-size: 1.5rem; color: var(--text); line-height:1.4;">"Best espresso between Chicago and Cleveland. Marco pulled my cortado and remembered me from a single visit two weeks before."</p>
+        <footer class="mono mt-6 text-dim">— Marcus T. &nbsp;/&nbsp; Google Review</footer>
+      </blockquote>
+      <blockquote class="quote-card" data-reveal data-delay="1">
+        <p class="editorial" style="font-size: 1.5rem; color: var(--text); line-height:1.4;">"The cannoli are dangerous. The cappuccino is the closest thing to Italy you'll find without flying there."</p>
+        <footer class="mono mt-6 text-dim">— Sarah R. &nbsp;/&nbsp; Yelp</footer>
+      </blockquote>
+      <blockquote class="quote-card" data-reveal data-delay="2">
+        <p class="editorial" style="font-size: 1.5rem; color: var(--text); line-height:1.4;">"My son and I have a Saturday morning ritual here. Sofia draws a horse on his hot chocolate every time. We're not going anywhere else."</p>
+        <footer class="mono mt-6 text-dim">— Devon K. &nbsp;/&nbsp; Regular</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT TEASE -->
+<section class="section" style="background: var(--bg-1); border-block: 1px solid var(--border);">
+  <div class="wrap">
+    <div class="flex justify-between items-center" style="flex-wrap:wrap; gap: var(--s-6);" data-reveal>
+      <div>
+        <span class="eyebrow">006 — Find Us</span>
+        <h2 class="h-1 mt-4">215 E Berry St.<br /><span class="editorial text-crema-deep">Pull up a chair.</span></h2>
+      </div>
+      <a href="visit.html" class="btn btn-rosso btn-arrow">Hours &amp; Directions</a>
+    </div>
+
+    <div class="grid grid-3 mt-8" style="gap: var(--s-5);">
+      <div class="card" data-reveal>
+        <div class="mono text-rosso">Address</div>
+        <p class="mt-4" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.4rem; line-height: 1.3;">215 E Berry St<br />Fort Wayne, IN 46802</p>
+      </div>
+      <div class="card" data-reveal data-delay="1">
+        <div class="mono text-rosso">Hours</div>
+        <p class="mt-4 mono" style="font-size: 0.85rem; line-height: 2;">
+          MON–FRI &nbsp; 6:30A — 6P<br />
+          SAT &nbsp; 7A — 5P<br />
+          SUN &nbsp; 8A — 3P
+        </p>
+      </div>
+      <div class="card" data-reveal data-delay="2">
+        <div class="mono text-rosso">Contact</div>
+        <p class="mt-4" style="font-family: var(--font-editorial); font-style: italic; font-size: 1.4rem; line-height: 1.3;">
+          (260) 422-1882<br />
+          <a href="https://instagram.com/fortezza.coffee" target="_blank" rel="noopener" style="text-decoration: underline;">@fortezza.coffee</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA — rosso for closing punch -->
+<section class="section section-rosso" style="padding: clamp(5rem, 10vw, 9rem) 0; position:relative; overflow:hidden;">
+  <div class="wrap center" style="position:relative;">
+    <span class="eyebrow" data-reveal>007 — Today</span>
+    <h2 class="h-mega mt-6" data-reveal data-delay="1">
+      Come<br />
+      <span class="editorial">stay a while.</span>
+    </h2>
+    <p class="lead mt-6" style="margin-inline:auto;" data-reveal data-delay="2">
+      The lever machine is warm. The pastries are out of the oven. Marco &amp; Sofia are at the counter. Bring a friend, your laptop, or just yourself.
+    </p>
+    <div class="mt-8 flex gap-4" style="justify-content:center; flex-wrap:wrap;" data-reveal data-delay="3">
+      <a href="menu.html" class="btn btn-primary btn-arrow">Order Online</a>
+      <a href="visit.html" class="btn btn-arrow">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="logo-lockup footer-brand" style="font-size: clamp(2.8rem, 6vw, 5rem);">
+      <span class="logo-fortezza">Fortezza</span>
+      <span class="logo-kekionga">Ke-Ki On-Ga · Coffee</span>
+    </div>
+    <div class="footer-grid mt-8">
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <p style="line-height:1.6;">
+          215 E Berry St<br />
+          Fort Wayne, IN 46802<br />
+          <span class="mono mt-3" style="display:inline-block; color: var(--text-faint);">(260) 422-1882</span>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="story.html">Story</a></li>
+          <li><a href="visit.html">Visit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Order</h4>
+        <ul>
+          <li><a href="visit.html">In-Store Pickup</a></li>
+          <li><a href="visit.html">Curbside</a></li>
+          <li><a href="visit.html">Catering Inquiry</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="https://instagram.com/fortezza.coffee" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/fortezzacoffee.fw/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="mailto:ciao@fortezzacoffee.com">ciao@fortezzacoffee.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Fortezza Coffee · Ke-Ki On-Ga · Fort Wayne, Indiana</span>
+      <span>Site by <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener">Sweet Dreams Studios</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart FAB -->
+<button class="cart-fab" id="cartFab" aria-label="View your order">
+  <span>BAG</span>
+  <span class="cart-fab-count" id="cartFabCount">0</span>
+</button>
+
+<!-- Cart overlay + drawer -->
+<div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Your order" role="dialog">
+  <div class="cart-header">
+    <div>
+      <div class="cart-title">Your order</div>
+      <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.25rem;">Pickup · ready in 15–20 min</div>
+    </div>
+    <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter">
+    <div class="cart-total">
+      <span class="cart-total-label">Subtotal</span>
+      <span class="cart-total-amount" id="cartTotal">$0.00</span>
+    </div>
+    <a href="order.html" class="btn btn-primary btn-arrow" style="width: 100%; justify-content: center;">Checkout</a>
+    <p class="cart-note">Demo only · prices are illustrative · pay at pickup</p>
+  </div>
+</aside>
+
+<script src="scripts/main.js" defer></script>
+<script src="scripts/cart.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Fortezza Coffee — Ke-Ki On-Ga">
+  <defs>
+    <path id="topArc" d="M 90,300 a 210,210 0 0 1 420,0" fill="none"/>
+    <path id="bottomArc" d="M 510,300 a 210,210 0 0 1 -420,0" fill="none"/>
+    <path id="leftArc" d="M 110,420 a 240,240 0 0 1 0,-240" fill="none"/>
+    <path id="rightArc" d="M 490,180 a 240,240 0 0 1 0,240" fill="none"/>
+  </defs>
+
+  <!-- Background plate (transparent so it floats on cream) -->
+  <circle cx="300" cy="300" r="290" fill="#FFFFFF" stroke="#1E3A8C" stroke-width="2"/>
+
+  <!-- Outer thin ring -->
+  <circle cx="300" cy="300" r="270" fill="none" stroke="#1E3A8C" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Top blue arc band -->
+  <path d="M 60,300 a 240,240 0 0 1 480,0 l -36,0 a 204,204 0 0 0 -408,0 z" fill="#1E3A8C"/>
+  <!-- Bottom blue arc band -->
+  <path d="M 540,300 a 240,240 0 0 1 -480,0 l 36,0 a 204,204 0 0 0 408,0 z" fill="#1E3A8C"/>
+
+  <!-- Side blue ribbons (left COFFEE, right gap) -->
+  <path d="M 60,300 a 240,240 0 0 1 12,-90 l 33,15 a 204,204 0 0 0 -9,75 z" fill="#1E3A8C"/>
+  <path d="M 60,300 a 240,240 0 0 0 12,90 l 33,-15 a 204,204 0 0 1 -9,-75 z" fill="#1E3A8C"/>
+
+  <!-- TOP TEXT: FORTEZZA -->
+  <text font-family="Oswald, Anton, Impact, sans-serif" font-size="46" font-weight="600" fill="#FFFFFF" letter-spacing="6">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">FORTEZZA</textPath>
+  </text>
+
+  <!-- BOTTOM TEXT: KE-KI ON-GA -->
+  <text font-family="Oswald, Anton, Impact, sans-serif" font-size="38" font-weight="600" fill="#FFFFFF" letter-spacing="4">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">KE-KI ON-GA</textPath>
+  </text>
+
+  <!-- LEFT TEXT: COFFEE -->
+  <text font-family="Oswald, Anton, Impact, sans-serif" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="6">
+    <textPath href="#leftArc" startOffset="50%" text-anchor="middle">COFFEE</textPath>
+  </text>
+
+  <!-- Corner accent letters F · A · W · C in red -->
+  <g font-family="Oswald, Anton, Impact, sans-serif" font-size="26" font-weight="700" fill="#DC2626" text-anchor="middle">
+    <text x="170" y="160">F</text>
+    <text x="430" y="160">A</text>
+    <text x="170" y="450">W</text>
+    <text x="430" y="450">C</text>
+  </g>
+
+  <!-- Center: Fort Wayne flag silhouette behind horse rider -->
+  <g transform="translate(300,300)">
+    <!-- Stylized banner / Fort Wayne flag suggestion -->
+    <path d="M -85,-90 L 85,-90 L 105,-30 L 85,30 L -85,30 L -65,-30 Z" fill="#1E3A8C" opacity="0.85"/>
+    <circle cx="60" cy="-50" r="6" fill="#DC2626"/>
+    <circle cx="60" cy="-15" r="6" fill="#DC2626"/>
+    <circle cx="40" cy="-32" r="6" fill="#DC2626"/>
+    <path d="M 30,-65 L 80,-65 M 30,-15 L 80,-15" stroke="#FCFAF4" stroke-width="2" fill="none"/>
+
+    <!-- Cavaliere on horseback (stylized silhouette) -->
+    <g fill="#DC2626">
+      <!-- Horse body -->
+      <path d="M -80,30 C -75,15 -55,5 -30,5 L 25,5 C 45,5 60,15 65,28 L 78,55 L 70,72 L 60,72 L 55,58 L 35,58 L 30,72 L 22,72 L 22,55 L -10,55 L -15,72 L -25,72 L -25,55 L -55,50 L -65,68 L -75,68 L -78,52 Z"/>
+      <!-- Horse head + neck -->
+      <path d="M 65,-5 L 88,-25 L 105,-22 L 110,-12 L 108,0 L 95,8 L 78,18 L 65,28 Z"/>
+      <!-- Tail -->
+      <path d="M -80,25 L -98,8 L -105,-5 L -98,2 L -85,15 Z"/>
+      <!-- Horse legs (galloping) -->
+      <path d="M -50,55 L -55,80 L -50,82 L -42,62 Z"/>
+      <path d="M 0,55 L -5,82 L 2,84 L 8,62 Z"/>
+      <path d="M 40,58 L 35,82 L 42,84 L 48,62 Z"/>
+
+      <!-- Rider (simplified) -->
+      <circle cx="0" cy="-30" r="11"/>
+      <path d="M -8,-22 L -18,-5 L -10,5 L 8,5 L 18,-2 L 12,-22 Z"/>
+      <!-- Rider's flag/standard -->
+      <path d="M 12,-30 L 12,-72 L 14,-72 L 14,-30 Z"/>
+      <path d="M 14,-70 L 38,-65 L 14,-58 Z"/>
+    </g>
+  </g>
+</svg>
