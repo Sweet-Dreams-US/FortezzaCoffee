@@ -1977,6 +1977,12 @@ h1, h2, h3, h4 { font-weight: 400; }
   animation: fadeUp 1.2s var(--ease-out) both 0.2s;
 }
 .hero-badge img { width: 100%; height: 100%; object-fit: contain; }
+/* The actual JPG logo has a square white background — clip it to a clean
+   circle and float it like a printed wax-stamp on the navy hero. */
+.hero-badge .hero-badge-logo {
+  clip-path: circle(50% at 50% 50%);
+  -webkit-clip-path: circle(50% at 50% 50%);
+}
 .hero-badge::before {
   content: '';
   position: absolute;
@@ -2419,45 +2425,63 @@ h1, h2, h3, h4 { font-weight: 400; }
 .section-giardino .btn-primary::before { background: var(--rosso); }
 .section-giardino .btn-primary:hover { color: var(--cream); border-color: var(--rosso); }
 
-/* Garden grid: 1 hero image + 4 herb cards */
+/* Garden grid — editorial proportions: photo takes a controlled ~360px,
+   herbs take the rest.  Avoids the "blocky" full-bleed feel. */
 .giardino-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 380px) 1fr;
   gap: clamp(2rem, 4vw, 3.5rem);
-  align-items: stretch;
+  align-items: start;
   margin-top: var(--s-8);
 }
-@media (max-width: 880px) { .giardino-grid { grid-template-columns: 1fr; } }
+@media (max-width: 880px) {
+  .giardino-grid { grid-template-columns: 1fr; gap: var(--s-6); }
+}
 
 .giardino-photo {
-  aspect-ratio: 4/5;
-  overflow: hidden;
-  border: 1px solid var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  /* Vintage editorial polaroid frame: cream matte + stacked drop shadow */
+  background: var(--cream);
+  padding: 14px 14px 8px;
+  box-shadow:
+    0 1px 0 rgba(252, 250, 244, 0.18),
+    0 24px 56px rgba(0, 0, 0, 0.45),
+    0 8px 16px rgba(0, 0, 0, 0.30);
+  rotate: -1.4deg;
+  transition: rotate var(--dur-slow) var(--ease-out), box-shadow var(--dur-slow);
+  max-width: 360px;
+  width: 100%;
+  margin-inline: auto;
   position: relative;
 }
+.giardino-photo:hover {
+  rotate: 0deg;
+  box-shadow:
+    0 1px 0 rgba(252, 250, 244, 0.18),
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    0 12px 22px rgba(0, 0, 0, 0.35);
+}
 .giardino-photo img {
+  aspect-ratio: 3/4;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
-  filter: contrast(1.05) saturate(1.1);
+  filter: contrast(1.04) saturate(1.06);
+  display: block;
 }
-.giardino-photo::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(27, 45, 20, 0.5));
-  pointer-events: none;
-}
+/* Photo caption sits in the bottom matte of the polaroid */
 .giardino-photo .photo-caption {
-  position: absolute;
-  bottom: var(--s-4);
-  left: var(--s-4);
-  right: var(--s-4);
-  z-index: 2;
+  padding: var(--s-4) var(--s-3) var(--s-3);
   font-family: var(--font-editorial);
   font-style: italic;
-  font-size: 1.1rem;
-  color: var(--cream);
+  font-size: 0.95rem;
+  color: var(--blu-deep);
+  text-align: center;
+  line-height: 1.3;
+}
+@media (max-width: 880px) {
+  .giardino-photo { max-width: 280px; rotate: 0deg; }
 }
 
 .herbs-list {
@@ -2525,5 +2549,114 @@ h1, h2, h3, h4 { font-weight: 400; }
   opacity: 0.45;
   z-index: -1;
   animation: laurelBreath 12s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   MOBILE PASS — tightening for <720px
+   Targets specific elements that crush, overflow, or eat too much space
+   on phone-sized viewports.  Augments the breakpoints already defined.
+   ========================================================================== */
+@media (max-width: 720px) {
+  /* Section padding tightens — the desktop clamp() floor (4rem) is still
+     too generous on a phone where every rem of vertical space matters. */
+  .section { padding: clamp(2.5rem, 7vw, 4rem) 0; }
+  .section-tight { padding: clamp(2rem, 6vw, 3rem) 0; }
+  .page-header { padding: clamp(5.5rem, 18vw, 8rem) 0 var(--s-5); }
+
+  /* Hero — keep the badge prominent but the wordmark must not overflow */
+  .hero-heraldic .wrap { padding-top: 6rem; padding-bottom: 2rem; }
+  .hero-heraldic::after { width: 280px; height: 280px; top: -80px; right: -80px; }
+  .hero-meta {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    padding-block: var(--s-2);
+    gap: var(--s-3);
+  }
+  .hero-meta .anno-mark { font-size: 0.6rem; }
+  .hero-meta .anno-mark::before, .hero-meta .anno-mark::after { font-size: 0.65rem; }
+  .hero-split { padding-block: var(--s-5); gap: var(--s-5); }
+  .hero-badge { max-width: 280px; }
+  .hero-badge.with-laurel .hero-laurel { inset: -14%; width: 128%; height: 128%; }
+  .hero-wordmark { gap: var(--s-3); }
+  .hero-wordmark .editorial { font-size: 1.2rem; }
+  .hero-wordmark .fortezza-mega {
+    font-size: clamp(3rem, 18vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.015em;
+  }
+  .hero-wordmark .fortezza-mega::after {
+    width: 40%;
+    height: 4px;
+    margin-top: var(--s-2);
+  }
+  .hero-wordmark .kekionga-tag { font-size: 0.7rem; letter-spacing: 0.24em; }
+  .hero-wordmark .coffee-tag { font-size: 0.85rem; letter-spacing: 0.22em; }
+  .hero-bottom-v2 { gap: var(--s-5); padding-top: var(--s-5); }
+  .hero-bottom-v2 .flex { justify-self: start !important; }
+  .three-rivers-curve { height: 50px; margin-top: var(--s-4) !important; }
+
+  /* Stamps — shrink so a cluster of three doesn't dominate the page */
+  .stamp { width: 80px; height: 80px; font-size: 0.5rem; padding: 4px; }
+  .stamp .stamp-big { font-size: 1rem; margin: 1px 0; }
+  .stamp::before { inset: 4px; }
+  .stamp-cluster { gap: var(--s-3); }
+
+  /* Olive dividers — scale to fit phone viewports without crowding */
+  .olive-divider { gap: var(--s-3); margin-block: var(--s-4); }
+  .olive-divider .olive-svg { width: 130px; height: 30px; max-width: 38vw; }
+
+  /* Roman numeral medallions — slightly smaller on phones */
+  .roman { width: 52px; height: 52px; font-size: 1.3rem; }
+  .roman-lg { width: 68px; height: 68px; font-size: 1.7rem; }
+
+  /* Story timeline — reduce padding-left so chapter text isn't crushed */
+  .section-espresso .grid-2 > div[style*="padding-left"] {
+    padding-left: calc(52px + var(--s-4)) !important;
+  }
+
+  /* Tre Fiumi cards — slightly tighter padding */
+  .river-card { padding: var(--s-5); gap: var(--s-3); }
+
+  /* Quadrant — already 1 col on mobile, just tighten padding */
+  .quadrant { padding: var(--s-6) var(--s-5); min-height: 0; }
+
+  /* Big display headlines — protect from overflow at the smallest sizes */
+  .h-mega { font-size: clamp(3rem, 14vw, 7rem); line-height: 0.9; }
+  .h-1    { font-size: clamp(2.4rem, 10vw, 5rem); }
+
+  /* Stats grid stacks to 2x2 instead of 1x4 — more compact on phones */
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: var(--s-5) var(--s-4); }
+  .stats-grid > div .display { font-size: clamp(2.6rem, 14vw, 5rem) !important; }
+
+  /* Section-giardino: tighter padding, smaller proportions */
+  .section-giardino { padding: clamp(3rem, 8vw, 5rem) 0; }
+
+  /* Motto bar — tighter padding, smaller motto */
+  .motto-bar { padding: var(--s-5) 0; }
+  .motto-bar .motto-text { font-size: clamp(1rem, 4vw, 1.5rem); }
+  .motto-bar .motto-trans { font-size: 0.6rem; letter-spacing: 0.20em; }
+
+  /* Page-header chip nav (menu page) — wrap nicely on phones */
+  .page-header .flex.gap-3 { gap: 0.4rem; }
+  .page-header .flex.gap-3 > a { font-size: 0.6rem; padding: 0.4rem 0.7rem; }
+
+  /* Cypress flank — already display: none at <720, keeping for clarity */
+  .cypress-flank .cypress { display: none; }
+
+  /* Logo lockup in footer — smaller on mobile so it doesn't dominate */
+  .footer-brand.logo-lockup { font-size: clamp(2rem, 9vw, 3.2rem) !important; }
+
+  /* Reduce overall body grain so phone screens don't feel busy */
+  body::before { opacity: 0.22; }
+}
+
+/* ----- Extra-tight phones (<= 380px wide) ----- */
+@media (max-width: 380px) {
+  .stamp { width: 68px; height: 68px; font-size: 0.45rem; }
+  .stamp .stamp-big { font-size: 0.85rem; }
+  .hero-meta { font-size: 0.55rem; gap: var(--s-2); }
+  .hero-wordmark .fortezza-mega { font-size: clamp(2.6rem, 18vw, 4.5rem); }
+  .stats-grid > div .display { font-size: clamp(2.2rem, 12vw, 3.6rem) !important; }
+  .h-mega { font-size: clamp(2.6rem, 13vw, 6rem); }
 }
 

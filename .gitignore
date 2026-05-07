@@ -1,7 +1,11 @@
-# Local screenshots from preview testing
+# Local screenshots from preview testing — but DO ship images committed to assets/
 *.png
 *.jpg
 *.jpeg
+!assets/**/*.png
+!assets/**/*.jpg
+!assets/**/*.jpeg
+!assets/**/*.webp
 
 # Playwright MCP cache
 .playwright-mcp/
