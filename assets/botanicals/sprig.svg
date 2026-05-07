@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" role="img" aria-label="Herb sprig">
+  <g fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+    <!-- Stem -->
+    <path d="M 40,116 Q 38,80 44,40 Q 46,18 40,4" fill="none" stroke-width="1.5"/>
+
+    <!-- Pairs of leaves -->
+    <g>
+      <ellipse cx="32" cy="100" rx="10" ry="3.5" transform="rotate(-30 32 100)"/>
+      <ellipse cx="50" cy="95"  rx="10" ry="3.5" transform="rotate( 30 50 95)"/>
+
+      <ellipse cx="28" cy="78"  rx="11" ry="4"   transform="rotate(-32 28 78)"/>
+      <ellipse cx="52" cy="74"  rx="11" ry="4"   transform="rotate( 32 52 74)"/>
+
+      <ellipse cx="26" cy="56"  rx="12" ry="4"   transform="rotate(-34 26 56)"/>
+      <ellipse cx="56" cy="52"  rx="12" ry="4"   transform="rotate( 34 56 52)"/>
+
+      <ellipse cx="30" cy="34"  rx="11" ry="3.8" transform="rotate(-36 30 34)"/>
+      <ellipse cx="54" cy="30"  rx="11" ry="3.8" transform="rotate( 36 54 30)"/>
+
+      <ellipse cx="36" cy="14"  rx="9"  ry="3"   transform="rotate(-30 36 14)"/>
+      <ellipse cx="46" cy="12"  rx="9"  ry="3"   transform="rotate( 30 46 12)"/>
+    </g>
+  </g>
+</svg>

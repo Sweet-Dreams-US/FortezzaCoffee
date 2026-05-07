@@ -49,7 +49,11 @@ ul, ol { list-style: none; }
   --blu-deep: #142659;      /* deep navy — alias of --espresso */
   --blu-night: #0A1B40;     /* deepest, almost black-blue */
 
-  --olive: #4F6F3A;         /* secondary natural accent — slightly cooler */
+  --olive: #4F6F3A;         /* warm olive — botanical accent + heraldic */
+  --olive-deep: #2F4A21;    /* deep cypress — for verde sections */
+  --olive-night: #1B2D14;   /* deepest forest — backgrounds */
+  --verde: #6B8E4E;         /* lively garden green — leaf details */
+  --verde-soft: #A8C08A;    /* sage — light leaf tints */
   --gold: #C9A24E;          /* heraldic gold — fortress detail */
 
   /* Typography — display swapped from Anton to Oswald for a heraldic, condensed-classic feel */
@@ -2232,3 +2236,294 @@ h1, h2, h3, h4 { font-weight: 400; }
   position: relative;
   z-index: 2;
 }
+
+/* ==========================================================================
+   FORTEZZA — BOTANICAL LAYER
+   Italian-villa greenery: laurel wreaths, olive branches, cypress, herb sprigs,
+   trailing vines.  Inherit color via currentColor so each placement can tint
+   to olive/verde/gold/cream as needed.  Heraldic + horticultural in one.
+   ========================================================================== */
+
+/* SVGs that take currentColor — always set color when using these */
+.botanical-svg { color: var(--olive); }
+.botanical-svg.tint-deep   { color: var(--olive-deep); }
+.botanical-svg.tint-verde  { color: var(--verde); }
+.botanical-svg.tint-sage   { color: var(--verde-soft); }
+.botanical-svg.tint-cream  { color: var(--cream); }
+.botanical-svg.tint-gold   { color: var(--gold); }
+
+/* ---------- Laurel wreath aura behind a focal element ----------
+   Place this on a wrapper.  The wreath sits behind the badge / image,
+   slightly larger than it, breathing in via slow pulse. */
+.laurel-aura { position: relative; }
+.laurel-aura > .laurel-svg {
+  position: absolute;
+  inset: -18%;
+  width: 136%;
+  height: 136%;
+  pointer-events: none;
+  color: var(--verde-soft);
+  opacity: 0.55;
+  animation: laurelBreath 8s ease-in-out infinite;
+}
+@keyframes laurelBreath {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 0.7;  transform: scale(1.02); }
+}
+
+/* ---------- Olive branch divider ----------
+   A horizontal olive branch used to flank Italian mottos and section titles. */
+.olive-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  color: var(--olive);
+  width: 100%;
+  margin-block: var(--s-5);
+}
+.olive-divider .olive-svg {
+  width: 220px;
+  max-width: 35vw;
+  height: 44px;
+  flex-shrink: 0;
+  color: inherit;
+}
+.olive-divider .olive-svg.flip { transform: scaleX(-1); }
+.olive-divider .olive-mark {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.motto-bar .olive-divider { color: var(--gold); }
+.motto-bar .olive-divider .olive-mark { color: var(--cream); }
+
+/* ---------- Vine border (top or bottom of a section) ---------- */
+.vine-border-top, .vine-border-bottom {
+  position: relative;
+}
+.vine-border-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: url("../assets/botanicals/vine-border.svg") center/auto 100% repeat-x;
+  background-size: 1200px 60px;
+  pointer-events: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.04));
+}
+.vine-border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: url("../assets/botanicals/vine-border.svg") center/auto 100% repeat-x;
+  background-size: 1200px 60px;
+  pointer-events: none;
+  opacity: 0.7;
+  transform: scaleY(-1);
+}
+
+/* ---------- Vertical cypress flank ----------
+   Pair of tall narrow cypresses framing a section like a Tuscan vista. */
+.cypress-flank {
+  position: relative;
+}
+.cypress-flank .cypress {
+  position: absolute;
+  width: clamp(60px, 8vw, 110px);
+  bottom: 0;
+  pointer-events: none;
+  color: var(--olive-deep);
+  opacity: 0.85;
+}
+.cypress-flank .cypress.left  { left: clamp(0.5rem, 3vw, 3rem); }
+.cypress-flank .cypress.right { right: clamp(0.5rem, 3vw, 3rem); }
+@media (max-width: 720px) { .cypress-flank .cypress { display: none; } }
+
+/* ---------- Herb sprig accent (small inline decoration) ---------- */
+.sprig {
+  display: inline-block;
+  width: 24px;
+  height: 36px;
+  vertical-align: middle;
+  color: var(--olive);
+  margin-inline: var(--s-2);
+}
+.sprig-lg { width: 60px; height: 90px; }
+
+/* ---------- Botanical corner (decorative leaf in section corners) ---------- */
+.botanical-corner {
+  position: absolute;
+  pointer-events: none;
+  color: var(--verde-soft);
+  opacity: 0.45;
+}
+.botanical-corner.tl { top: 12px; left: 12px; transform: scale(0.7); }
+.botanical-corner.tr { top: 12px; right: 12px; transform: scale(0.7) scaleX(-1); }
+.botanical-corner.bl { bottom: 12px; left: 12px; transform: scale(0.7) scaleY(-1); }
+.botanical-corner.br { bottom: 12px; right: 12px; transform: scale(0.7) scale(-1, -1); }
+
+/* ==========================================================================
+   DAL GIARDINO — Garden / Greenery Section
+   Deep verdant background, cream type, herb-led editorial feature.
+   The "fresh" counterweight to the heraldic navy hero.
+   ========================================================================== */
+.section-giardino {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(168, 192, 138, 0.12), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(201, 162, 78, 0.10), transparent 55%),
+    linear-gradient(180deg, var(--olive-deep) 0%, var(--olive-night) 100%);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 9rem) 0;
+}
+.section-giardino::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.95 0 0 0 0 0.65 0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.45;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Re-scope tokens so child components render correctly on green */
+.section-giardino {
+  --text: var(--cream);
+  --text-soft: rgba(252, 250, 244, 0.86);
+  --text-dim: rgba(252, 250, 244, 0.62);
+  --text-faint: rgba(252, 250, 244, 0.38);
+  --border: rgba(252, 250, 244, 0.16);
+  --border-strong: rgba(252, 250, 244, 0.30);
+  --bg: var(--olive-deep);
+  --bg-1: var(--olive-night);
+  --surface: rgba(252, 250, 244, 0.05);
+  --surface-2: rgba(252, 250, 244, 0.08);
+}
+.section-giardino .editorial,
+.section-giardino .text-crema-deep { color: var(--verde-soft) !important; }
+.section-giardino .eyebrow::before { background: var(--gold); }
+.section-giardino .text-rosso { color: #FFB07A; } /* warm coral on green for legibility */
+.section-giardino .btn-primary {
+  background: var(--cream);
+  color: var(--olive-deep);
+  border-color: var(--cream);
+}
+.section-giardino .btn-primary::before { background: var(--rosso); }
+.section-giardino .btn-primary:hover { color: var(--cream); border-color: var(--rosso); }
+
+/* Garden grid: 1 hero image + 4 herb cards */
+.giardino-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: stretch;
+  margin-top: var(--s-8);
+}
+@media (max-width: 880px) { .giardino-grid { grid-template-columns: 1fr; } }
+
+.giardino-photo {
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  position: relative;
+}
+.giardino-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(1.1);
+}
+.giardino-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(27, 45, 20, 0.5));
+  pointer-events: none;
+}
+.giardino-photo .photo-caption {
+  position: absolute;
+  bottom: var(--s-4);
+  left: var(--s-4);
+  right: var(--s-4);
+  z-index: 2;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--cream);
+}
+
+.herbs-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+@media (max-width: 480px) { .herbs-list { grid-template-columns: 1fr; } }
+
+.herb-card {
+  background: rgba(252, 250, 244, 0.05);
+  border: 1px solid rgba(252, 250, 244, 0.16);
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  transition: background var(--dur), border-color var(--dur), transform var(--dur);
+  position: relative;
+}
+.herb-card:hover {
+  background: rgba(252, 250, 244, 0.10);
+  border-color: var(--verde-soft);
+  transform: translateY(-3px);
+}
+.herb-card .sprig-icon {
+  width: 32px;
+  height: 48px;
+  color: var(--verde-soft);
+}
+.herb-card .herb-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.herb-card .herb-italian {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--verde-soft);
+}
+.herb-card .herb-use {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(252, 250, 244, 0.65);
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px dashed rgba(252, 250, 244, 0.18);
+}
+
+.section-giardino .tricolor span:nth-child(2) { background: var(--verde-soft); }
+
+/* ---------- Hero Garland (laurel wreath behind the badge) ---------- */
+.hero-badge.with-laurel { isolation: isolate; }
+.hero-badge.with-laurel .hero-laurel {
+  position: absolute;
+  inset: -22%;
+  width: 144%;
+  height: 144%;
+  pointer-events: none;
+  color: var(--gold);
+  opacity: 0.45;
+  z-index: -1;
+  animation: laurelBreath 12s ease-in-out infinite;
+}
+

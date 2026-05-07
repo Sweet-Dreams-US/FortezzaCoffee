@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 60" role="img" aria-label="Vine border" preserveAspectRatio="none">
+  <g fill="currentColor" stroke="currentColor">
+    <!-- Wavy vine line -->
+    <path d="M 0,30 Q 75,10 150,30 T 300,30 T 450,30 T 600,30 T 750,30 T 900,30 T 1050,30 T 1200,30"
+          fill="none" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Leaves alternating top + bottom of vine -->
+    <g>
+      <!-- 100, 200, 300... cluster -->
+      <ellipse cx="100" cy="14" rx="11" ry="4"   transform="rotate(-30 100 14)"/>
+      <ellipse cx="200" cy="46" rx="11" ry="4"   transform="rotate( 30 200 46)"/>
+      <ellipse cx="300" cy="14" rx="11" ry="4"   transform="rotate(-30 300 14)"/>
+      <ellipse cx="400" cy="46" rx="11" ry="4"   transform="rotate( 30 400 46)"/>
+      <ellipse cx="500" cy="14" rx="11" ry="4"   transform="rotate(-30 500 14)"/>
+      <ellipse cx="600" cy="46" rx="11" ry="4"   transform="rotate( 30 600 46)"/>
+      <ellipse cx="700" cy="14" rx="11" ry="4"   transform="rotate(-30 700 14)"/>
+      <ellipse cx="800" cy="46" rx="11" ry="4"   transform="rotate( 30 800 46)"/>
+      <ellipse cx="900" cy="14" rx="11" ry="4"   transform="rotate(-30 900 14)"/>
+      <ellipse cx="1000" cy="46" rx="11" ry="4"  transform="rotate( 30 1000 46)"/>
+      <ellipse cx="1100" cy="14" rx="11" ry="4"  transform="rotate(-30 1100 14)"/>
+    </g>
+
+    <!-- Berry clusters at intervals -->
+    <g opacity="0.75">
+      <circle cx="150" cy="34" r="2.5"/>
+      <circle cx="156" cy="38" r="2.5"/>
+      <circle cx="146" cy="38" r="2.5"/>
+
+      <circle cx="450" cy="34" r="2.5"/>
+      <circle cx="456" cy="38" r="2.5"/>
+      <circle cx="446" cy="38" r="2.5"/>
+
+      <circle cx="750" cy="34" r="2.5"/>
+      <circle cx="756" cy="38" r="2.5"/>
+      <circle cx="746" cy="38" r="2.5"/>
+
+      <circle cx="1050" cy="34" r="2.5"/>
+      <circle cx="1056" cy="38" r="2.5"/>
+      <circle cx="1046" cy="38" r="2.5"/>
+    </g>
+  </g>
+</svg>

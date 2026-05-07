@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" role="img" aria-label="Olive branch">
+  <g fill="currentColor" stroke="currentColor">
+    <!-- Central stem -->
+    <path d="M 0,40 Q 100,32 200,40 T 400,40" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- Leaves alternating up/down along the stem.  Olive leaves are long & narrow. -->
+    <!-- Left half -->
+    <ellipse cx="40"  cy="28" rx="14" ry="3.5" transform="rotate(-22 40 28)"/>
+    <ellipse cx="60"  cy="50" rx="14" ry="3.5" transform="rotate( 18 60 50)"/>
+    <ellipse cx="84"  cy="26" rx="15" ry="3.8" transform="rotate(-25 84 26)"/>
+    <ellipse cx="108" cy="51" rx="15" ry="3.8" transform="rotate( 22 108 51)"/>
+    <ellipse cx="134" cy="25" rx="16" ry="4"   transform="rotate(-26 134 25)"/>
+    <ellipse cx="160" cy="52" rx="16" ry="4"   transform="rotate( 24 160 52)"/>
+    <ellipse cx="188" cy="26" rx="15" ry="3.8" transform="rotate(-22 188 26)"/>
+
+    <!-- Right half (mirror-ish) -->
+    <ellipse cx="218" cy="50" rx="15" ry="3.8" transform="rotate( 22 218 50)"/>
+    <ellipse cx="244" cy="25" rx="16" ry="4"   transform="rotate(-24 244 25)"/>
+    <ellipse cx="270" cy="52" rx="16" ry="4"   transform="rotate( 26 270 52)"/>
+    <ellipse cx="296" cy="26" rx="15" ry="3.8" transform="rotate(-22 296 26)"/>
+    <ellipse cx="320" cy="51" rx="15" ry="3.8" transform="rotate( 22 320 51)"/>
+    <ellipse cx="344" cy="28" rx="14" ry="3.5" transform="rotate(-20 344 28)"/>
+    <ellipse cx="364" cy="50" rx="14" ry="3.5" transform="rotate( 18 364 50)"/>
+
+    <!-- Olives (small berry pairs) -->
+    <g opacity="0.85">
+      <ellipse cx="100" cy="40" rx="3" ry="4" />
+      <ellipse cx="106" cy="38" rx="3" ry="4" />
+      <ellipse cx="200" cy="40" rx="3" ry="4" />
+      <ellipse cx="206" cy="38" rx="3" ry="4" />
+      <ellipse cx="300" cy="40" rx="3" ry="4" />
+      <ellipse cx="306" cy="38" rx="3" ry="4" />
+    </g>
+  </g>
+</svg>

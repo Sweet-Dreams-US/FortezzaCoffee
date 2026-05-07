@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 240" role="img" aria-label="Italian cypress">
+  <g fill="currentColor">
+    <!-- Tall, narrow Italian cypress silhouette — slightly flame-shaped at the top -->
+    <path d="M 40,4
+             C 30,30 24,60 22,100
+             C 20,140 22,180 28,210
+             L 32,228
+             L 48,228
+             L 52,210
+             C 58,180 60,140 58,100
+             C 56,60 50,30 40,4
+             Z"/>
+    <!-- Trunk -->
+    <rect x="36" y="226" width="8" height="12" />
+  </g>
+  <!-- Texture lines (subtle vertical needles) -->
+  <g stroke="currentColor" stroke-width="0.6" opacity="0.4" fill="none">
+    <path d="M 32,30 Q 30,80 28,160" />
+    <path d="M 40,12 Q 40,90 40,200" />
+    <path d="M 48,30 Q 50,80 52,160" />
+  </g>
+</svg>

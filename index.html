@@ -47,7 +47,9 @@
 
     <!-- Main split: badge + wordmark -->
     <div class="hero-split">
-      <div class="hero-badge fade-up">
+      <div class="hero-badge with-laurel fade-up">
+        <!-- Gold laurel wreath glowing behind the badge -->
+        <img class="hero-laurel" src="assets/botanicals/laurel-wreath.svg" alt="" aria-hidden="true" />
         <img src="assets/logo.svg" alt="Fortezza Coffee · Ke-Ki On-Ga heraldic badge" />
       </div>
 
@@ -143,9 +145,14 @@
   </div>
 </section>
 
-<!-- MOTTO BAR — Italian motto with chevron flourishes -->
+<!-- MOTTO BAR — Italian motto wrapped in olive branches -->
 <section class="motto-bar">
   <div class="wrap">
+    <div class="olive-divider">
+      <img class="olive-svg" src="assets/botanicals/olive-branch.svg" alt="" aria-hidden="true" />
+      <span class="olive-mark">✦</span>
+      <img class="olive-svg flip" src="assets/botanicals/olive-branch.svg" alt="" aria-hidden="true" />
+    </div>
     <p class="motto-text">
       "<strong>Nella fortezza, ogni ospite è un re.</strong>"
     </p>
@@ -160,6 +167,9 @@
       <div>
         <span class="eyebrow">II — Tre Fiumi</span>
         <h2 class="h-1 mt-4">Three rivers <br /><span class="editorial text-crema-deep">meet here.</span></h2>
+        <div class="olive-divider" style="justify-content: flex-start; max-width: 360px; color: var(--olive); margin-top: var(--s-4);">
+          <img class="olive-svg" src="assets/botanicals/olive-branch.svg" alt="" aria-hidden="true" style="width: 240px; height: 40px;" />
+        </div>
       </div>
       <p class="text-soft" style="max-width: 42ch; line-height: 1.6;">
         Long before Fort Wayne, the <em class="editorial">St. Joseph</em>, <em class="editorial">St. Marys</em>, and <em class="editorial">Maumee</em> rivers met where we now stand. The Miami called this confluence <em class="editorial" style="color: var(--rosso);">Ke-Ki On-Ga</em>. Three streams. One place. One <em class="editorial">fortezza</em>.
@@ -227,6 +237,88 @@
   </div>
 </section>
 
+<!-- DAL GIARDINO — fresh herbs / garden ingredients on a deep verdant green -->
+<section class="section-giardino">
+  <div class="tricolor" style="position: absolute; top: 0; left: 0; right: 0;"><span></span><span></span><span></span></div>
+
+  <div class="wrap" style="position: relative; z-index: 2;">
+    <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: var(--s-6);" data-reveal>
+      <div>
+        <span class="eyebrow" style="color: var(--verde-soft);">III · Dal Giardino</span>
+        <h2 class="h-1 mt-4" style="color: var(--cream);">From the <br /><span class="editorial">garden.</span></h2>
+      </div>
+      <p class="lead" style="max-width: 44ch; color: rgba(252, 250, 244, 0.85);">
+        Italian cooking starts in the herb pot, not the spice rack. We grow what we can on the back patio, source the rest from a Fort Wayne farm — and our <em class="editorial">profumi</em> change every season.
+      </p>
+    </div>
+
+    <div class="giardino-grid">
+      <!-- Photo with overlaid caption -->
+      <div class="giardino-photo" data-reveal>
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=85" alt="Espresso surrounded by fresh herbs and greenery" loading="lazy" />
+        <div class="photo-caption">
+          "Profumo, prima di sapore." <br />
+          <span style="font-family: var(--font-mono); font-style: normal; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(252,250,244,0.7);">— Aroma before flavor —</span>
+        </div>
+      </div>
+
+      <!-- Four herb cards -->
+      <div data-reveal data-delay="1" style="display: flex; flex-direction: column; gap: var(--s-5);">
+        <div class="herbs-list">
+          <article class="herb-card">
+            <svg class="sprig-icon" viewBox="0 0 80 120" aria-hidden="true">
+              <use href="assets/botanicals/sprig.svg#root" />
+              <!-- Inline fallback path so the icon renders without external use -->
+              <g fill="currentColor"><path d="M 40,116 Q 38,80 44,40 Q 46,18 40,4" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="32" cy="100" rx="10" ry="3.5" transform="rotate(-30 32 100)"/><ellipse cx="50" cy="95" rx="10" ry="3.5" transform="rotate(30 50 95)"/><ellipse cx="28" cy="78" rx="11" ry="4" transform="rotate(-32 28 78)"/><ellipse cx="52" cy="74" rx="11" ry="4" transform="rotate(32 52 74)"/><ellipse cx="26" cy="56" rx="12" ry="4" transform="rotate(-34 26 56)"/><ellipse cx="56" cy="52" rx="12" ry="4" transform="rotate(34 56 52)"/><ellipse cx="30" cy="34" rx="11" ry="3.8" transform="rotate(-36 30 34)"/><ellipse cx="54" cy="30" rx="11" ry="3.8" transform="rotate(36 54 30)"/></g>
+            </svg>
+            <div class="herb-name">Basilico</div>
+            <div class="herb-italian">Genovese basil — bright, anise</div>
+            <div class="herb-use">In · Caprese panino · Pesto pollo</div>
+          </article>
+
+          <article class="herb-card">
+            <svg class="sprig-icon" viewBox="0 0 80 120" aria-hidden="true">
+              <g fill="currentColor"><path d="M 40,116 Q 38,80 44,40 Q 46,18 40,4" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="32" cy="100" rx="6" ry="4" transform="rotate(-25 32 100)"/><ellipse cx="50" cy="92" rx="6" ry="4" transform="rotate(25 50 92)"/><ellipse cx="28" cy="76" rx="6" ry="4" transform="rotate(-25 28 76)"/><ellipse cx="52" cy="68" rx="6" ry="4" transform="rotate(25 52 68)"/><ellipse cx="28" cy="50" rx="6" ry="4" transform="rotate(-25 28 50)"/><ellipse cx="52" cy="42" rx="6" ry="4" transform="rotate(25 52 42)"/><ellipse cx="32" cy="22" rx="6" ry="4" transform="rotate(-25 32 22)"/></g>
+            </svg>
+            <div class="herb-name">Rosmarino</div>
+            <div class="herb-italian">Tuscan rosemary — pine, smoke</div>
+            <div class="herb-use">In · Olive oil cake · Focaccia</div>
+          </article>
+
+          <article class="herb-card">
+            <svg class="sprig-icon" viewBox="0 0 80 120" aria-hidden="true">
+              <g fill="currentColor"><path d="M 40,116 Q 38,80 44,40 Q 46,18 40,4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="34" cy="100" r="6"/><circle cx="48" cy="94" r="6"/><circle cx="30" cy="78" r="7"/><circle cx="50" cy="72" r="7"/><circle cx="32" cy="54" r="7"/><circle cx="50" cy="48" r="7"/><circle cx="36" cy="30" r="6"/><circle cx="46" cy="24" r="6"/></g>
+            </svg>
+            <div class="herb-name">Salvia</div>
+            <div class="herb-italian">Sage — earthy, soft pepper</div>
+            <div class="herb-use">In · Gelato sabor · Burro &amp; salvia</div>
+          </article>
+
+          <article class="herb-card">
+            <svg class="sprig-icon" viewBox="0 0 80 120" aria-hidden="true">
+              <g fill="currentColor"><path d="M 40,116 Q 38,80 44,40 Q 46,18 40,4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M 32,100 Q 22,98 18,108 Q 28,108 32,100 Z"/><path d="M 50,92 Q 60,90 64,100 Q 54,100 50,92 Z"/><path d="M 28,78 Q 16,74 12,86 Q 24,86 28,78 Z"/><path d="M 52,68 Q 64,64 68,76 Q 56,76 52,68 Z"/><path d="M 28,52 Q 14,46 10,58 Q 24,58 28,52 Z"/><path d="M 52,44 Q 66,38 70,50 Q 56,50 52,44 Z"/><path d="M 32,24 Q 22,20 18,30 Q 30,30 32,24 Z"/></g>
+            </svg>
+            <div class="herb-name">Menta</div>
+            <div class="herb-italian">Mint — cool, snappy</div>
+            <div class="herb-use">In · Shakerato · Limone gelato</div>
+          </article>
+        </div>
+
+        <!-- Olive branch divider -->
+        <div class="olive-divider" style="color: var(--verde-soft); margin-top: var(--s-3);">
+          <img class="olive-svg" src="assets/botanicals/olive-branch.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <p class="text-soft" style="text-align: center; font-family: var(--font-editorial); font-style: italic; font-size: 1.15rem; color: rgba(252, 250, 244, 0.78);">
+          What's on the patio today is <br />on the menu tomorrow.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tricolor" style="position: absolute; bottom: 0; left: 0; right: 0;"><span></span><span></span><span></span></div>
+</section>
+
 <!-- HERALDIC RULE -->
 <div class="wrap">
   <div class="heraldic-rule">
@@ -251,7 +343,7 @@
   <div class="wrap" style="position: relative; z-index: 2;">
     <div class="feature-spread">
       <div class="feature-img" data-reveal style="border-color: rgba(252, 250, 244, 0.25);">
-        <img src="https://images.unsplash.com/photo-1442550528053-c431ecb55509?auto=format&fit=crop&w=1200&q=85" alt="Caffè Vergnano espresso, Turin" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=1200&q=85" alt="Italian café interior with hanging greenery" loading="lazy" />
         <!-- Wax seal stamp overlapping the image, bottom-right -->
         <div class="stamp stamp-gold" style="position: absolute; bottom: -36px; right: -36px; background: var(--blu-deep); z-index: 3;">
           <div>Caffè</div>
@@ -441,17 +533,25 @@
   </div>
 </section>
 
-<!-- FINAL CTA — rosso with chevron stripes -->
-<section class="section section-rosso crenel-top crenel-cream" style="padding: clamp(5rem, 10vw, 9rem) 0; position:relative; overflow:hidden;">
-  <!-- Decorative chevron pattern -->
-  <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 30%; background: repeating-linear-gradient(135deg, rgba(252, 250, 244, 0.08) 0, rgba(252, 250, 244, 0.08) 12px, transparent 12px, transparent 30px); pointer-events: none;"></div>
-  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 30%; background: repeating-linear-gradient(45deg, rgba(252, 250, 244, 0.08) 0, rgba(252, 250, 244, 0.08) 12px, transparent 12px, transparent 30px); pointer-events: none;"></div>
+<!-- FINAL CTA — rosso with cypress flanks + chevron stripes -->
+<section class="section section-rosso crenel-top crenel-cream cypress-flank" style="padding: clamp(5rem, 10vw, 9rem) 0; position:relative; overflow:hidden;">
+  <!-- Decorative chevron pattern (subtle) -->
+  <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 18%; background: repeating-linear-gradient(135deg, rgba(252, 250, 244, 0.06) 0, rgba(252, 250, 244, 0.06) 12px, transparent 12px, transparent 30px); pointer-events: none;"></div>
+  <div style="position: absolute; top: 0; right: 0; bottom: 0; width: 18%; background: repeating-linear-gradient(45deg, rgba(252, 250, 244, 0.06) 0, rgba(252, 250, 244, 0.06) 12px, transparent 12px, transparent 30px); pointer-events: none;"></div>
+
+  <!-- Italian cypresses flanking the CTA -->
+  <img class="cypress left" src="assets/botanicals/cypress.svg" alt="" aria-hidden="true" style="color: var(--cream); opacity: 0.18;" />
+  <img class="cypress right" src="assets/botanicals/cypress.svg" alt="" aria-hidden="true" style="color: var(--cream); opacity: 0.18; transform: scaleX(-1);" />
+
   <div class="wrap center" style="position:relative;">
     <span class="eyebrow" data-reveal>VII — Today</span>
     <h2 class="h-mega mt-6" data-reveal data-delay="1">
       Come<br />
       <span class="editorial">stay a while.</span>
     </h2>
+    <div class="olive-divider" data-reveal data-delay="2" style="color: rgba(252, 250, 244, 0.55); max-width: 540px; margin-inline: auto;">
+      <img class="olive-svg" src="assets/botanicals/olive-branch.svg" alt="" aria-hidden="true" />
+    </div>
     <p class="lead mt-6" style="margin-inline:auto;" data-reveal data-delay="2">
       The lever machine is warm. The pastries are out of the oven. Marco &amp; Sofia are at the counter. Bring a friend, your laptop, or just yourself.
     </p>
