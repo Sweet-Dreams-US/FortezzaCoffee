@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Fortezza Coffee · Demo Console</title>
+<meta name="description" content="Demo admin console for Fortezza Coffee — orders, menu, analytics, accounting, events, and more." />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<style>
+  /* FORTEZZA ADMIN — back-of-house console.  Self-contained styles. */
+  :root {
+    --bg:        #F8F4EB;
+    --surface:   #FFFFFF;
+    --surface-2: #FAF6EC;
+    --border:    #E2D9C5;
+    --border-strong: #C4B695;
+    --text:      #0A1B40;
+    --text-soft: #324577;
+    --text-dim:  #6878A0;
+    --text-faint:#A3AEC8;
+    --rosso:     #DC2626;
+    --rosso-deep:#991B1B;
+    --blu:       #1E3A8C;
+    --blu-deep:  #142659;
+    --blu-night: #0A1B40;
+    --gold:      #C9A24E;
+    --olive:     #4F6F3A;
+    --verde:     #6B8E4E;
+    --cream:     #FCFAF4;
+    --green:     #15803D;
+    --amber:     #D97706;
+    --red:       #DC2626;
+    --slate:     #64748B;
+    --font-display: 'Oswald', 'Anton', 'Impact', sans-serif;
+    --font-editorial: 'Cormorant Garamond', serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    --sidebar-w: 240px;
+    --header-h: 64px;
+    --r-sm: 4px;
+    --r-md: 6px;
+    --r-lg: 10px;
+    --shadow-sm: 0 1px 2px rgba(10, 27, 64, 0.06);
+    --shadow-md: 0 4px 12px rgba(10, 27, 64, 0.08), 0 1px 3px rgba(10, 27, 64, 0.04);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+  }
+  a { color: inherit; text-decoration: none; }
+  ul, ol { list-style: none; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: 0; }
+  img { display: block; max-width: 100%; }
+
+  /* Sidebar */
+  .admin-sidebar {
+    background: var(--blu-night);
+    color: rgba(252, 250, 244, 0.85);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    border-right: 1px solid rgba(0,0,0,0.2);
+  }
+  .admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(252, 250, 244, 0.08);
+    color: var(--cream);
+  }
+  .admin-brand img { width: 36px; height: 36px; border-radius: 50%; background: var(--cream); flex-shrink: 0; }
+  .admin-brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .admin-brand-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--rosso);
+  }
+  .admin-brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+  .admin-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(252, 250, 244, 0.4);
+    padding: 1.4rem 1.25rem 0.5rem;
+  }
+  .admin-nav { flex: 1; overflow-y: auto; padding-bottom: 1rem; }
+  .admin-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.65rem 1.25rem;
+    color: rgba(252, 250, 244, 0.78);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .admin-tab:hover { background: rgba(252, 250, 244, 0.05); color: var(--cream); }
+  .admin-tab.is-active {
+    background: rgba(220, 38, 38, 0.10);
+    color: var(--cream);
+    border-left-color: var(--rosso);
+  }
+  .admin-tab-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.85; }
+  .admin-tab .admin-tab-badge {
+    margin-left: auto;
+    background: var(--rosso);
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 999px;
+    line-height: 1;
+  }
+  .admin-sidebar-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(252, 250, 244, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.8rem;
+  }
+  .admin-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--rosso);
+    color: var(--cream);
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .admin-user-name { color: var(--cream); font-weight: 500; }
+  .admin-user-role {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Main area */
+  .admin-main { background: var(--bg); }
+  .admin-header {
+    height: var(--header-h);
+    padding: 0 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .admin-header-title { display: flex; align-items: baseline; gap: 0.7rem; }
+  .admin-header-title h1 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1;
+  }
+  .admin-header-title .crumb {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .admin-header-actions { display: flex; align-items: center; gap: 0.6rem; }
+  .admin-search {
+    width: 280px;
+    height: 36px;
+    padding: 0 0.85rem 0 2.2rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    font-size: 0.85rem;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236878A0' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='m21 21-4.35-4.35'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 0.7rem center;
+    transition: border-color 0.15s;
+  }
+  .admin-search:focus { outline: none; border-color: var(--blu); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 36px;
+    padding: 0 0.95rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .btn-primary { background: var(--blu); color: var(--cream); border-color: var(--blu); }
+  .btn-primary:hover { background: var(--blu-deep); border-color: var(--blu-deep); }
+  .btn-rosso { background: var(--rosso); color: var(--cream); border-color: var(--rosso); }
+  .btn-rosso:hover { background: var(--rosso-deep); border-color: var(--rosso-deep); }
+  .btn-sm { height: 28px; padding: 0 0.6rem; font-size: 0.74rem; }
+  .btn-icon { width: 36px; padding: 0; display: grid; place-items: center; }
+
+  .admin-panel {
+    display: none;
+    padding: 2rem;
+    animation: fadeIn 0.3s var(--ease-out);
+  }
+  .admin-panel.is-active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 1100px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .stat-card .label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .stat-card .value {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat-card .delta {
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .delta.up { color: var(--green); }
+  .delta.down { color: var(--red); }
+  .delta.flat { color: var(--text-dim); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    gap: 0.6rem;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .card-sub {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .card-body { padding: 1.25rem; }
+
+  .row-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+  .row-2-eq { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 1100px) { .row-2, .row-2-eq, .row-3 { grid-template-columns: 1fr; } }
+
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .data-table th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+  .data-table th:first-child { padding-left: 1.25rem; }
+  .data-table th:last-child  { padding-right: 1.25rem; }
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .data-table td:first-child { padding-left: 1.25rem; }
+  .data-table td:last-child  { padding-right: 1.25rem; }
+  .data-table tr:last-child td { border-bottom: 0; }
+  .data-table tr:hover td { background: var(--surface-2); }
+
+  .order-id {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--blu);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pill.pill-pending  { color: var(--amber); background: rgba(217, 119, 6, 0.10); }
+  .pill.pill-ready    { color: var(--blu);   background: rgba(30, 58, 140, 0.10); }
+  .pill.pill-complete { color: var(--green); background: rgba(21, 128, 61, 0.10); }
+  .pill.pill-cancel   { color: var(--slate); background: rgba(100, 116, 139, 0.10); }
+  .pill.pill-paid     { color: var(--green); background: rgba(21, 128, 61, 0.10); }
+  .pill.pill-due      { color: var(--amber); background: rgba(217, 119, 6, 0.10); }
+  .pill.pill-low      { color: var(--red);   background: rgba(220, 38, 38, 0.10); }
+  .pill.pill-stocked  { color: var(--green); background: rgba(21, 128, 61, 0.10); }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    flex-wrap: wrap;
+  }
+  .filter-chip {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-chip:hover { border-color: var(--border-strong); }
+  .filter-chip.is-on { background: var(--blu); color: var(--cream); border-color: var(--blu); }
+  .filter-chip-spacer { flex: 1; }
+
+  .bar-chart {
+    display: flex;
+    align-items: end;
+    gap: 6px;
+    height: 200px;
+    padding: 1rem 0 0.5rem;
+  }
+  .bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--blu) 0%, var(--blu-deep) 100%);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    min-height: 4px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+  }
+  .bar:hover { opacity: 0.85; }
+  .bar:hover::after {
+    content: attr(data-value);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blu-night);
+    color: var(--cream);
+    padding: 3px 7px;
+    border-radius: var(--r-sm);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    white-space: nowrap;
+  }
+  .bar.bar-rosso { background: linear-gradient(180deg, var(--rosso) 0%, var(--rosso-deep) 100%); }
+  .bar.bar-gold  { background: linear-gradient(180deg, var(--gold) 0%, #8C6F2A 100%); }
+
+  .chart-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .heatmap {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    gap: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+  }
+  .heatmap > .cell {
+    aspect-ratio: 1.6/1;
+    border-radius: 2px;
+    background: var(--surface-2);
+    position: relative;
+  }
+  .heatmap > .cell[data-v="1"] { background: rgba(30, 58, 140, 0.15); }
+  .heatmap > .cell[data-v="2"] { background: rgba(30, 58, 140, 0.30); }
+  .heatmap > .cell[data-v="3"] { background: rgba(30, 58, 140, 0.50); }
+  .heatmap > .cell[data-v="4"] { background: rgba(30, 58, 140, 0.75); }
+  .heatmap > .cell[data-v="5"] { background: var(--blu); }
+  .heatmap > .label {
+    color: var(--text-dim);
+    align-self: center;
+    text-align: right;
+    padding-right: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .donut {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .donut::after {
+    content: '';
+    position: absolute;
+    inset: 26px;
+    background: var(--surface);
+    border-radius: 50%;
+  }
+  .donut-label { position: absolute; text-align: center; z-index: 2; }
+  .donut-label .big {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .donut-label .sm {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  .menu-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--surface-2);
+    padding: 6px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border);
+  }
+  .cat-item {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cat-item:hover { background: var(--surface); }
+  .cat-item.is-active { background: var(--surface); color: var(--blu); box-shadow: var(--shadow-sm); }
+  .cat-item .count { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); }
+
+  .menu-item-row {
+    display: grid;
+    grid-template-columns: 1fr 110px 100px 70px;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .menu-item-row:hover { background: var(--surface-2); }
+  .menu-item-row:last-child { border-bottom: 0; }
+  .menu-item-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+  .menu-item-desc {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+  .menu-item-price {
+    font-family: var(--font-mono);
+    color: var(--rosso);
+    font-size: 0.85rem;
+    text-align: right;
+  }
+  .menu-item-price input {
+    width: 80px;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    font-family: var(--font-mono);
+    text-align: right;
+    color: var(--rosso);
+  }
+
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 38px; height: 22px;
+    background: var(--border-strong);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    background: var(--cream);
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle[data-on="true"] { background: var(--green); }
+  .toggle[data-on="true"]::after { transform: translateX(16px); }
+
+  .progress {
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .progress > span {
+    display: block;
+    height: 100%;
+    background: var(--blu);
+    border-radius: inherit;
+  }
+  .progress.green > span { background: var(--green); }
+  .progress.amber > span { background: var(--amber); }
+  .progress.red > span   { background: var(--red); }
+
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .cal-head, .cal-day { background: var(--surface); padding: 8px; min-height: 80px; font-size: 0.78rem; }
+  .cal-head {
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    min-height: 0;
+    padding: 8px;
+  }
+  .cal-day { display: flex; flex-direction: column; gap: 4px; }
+  .cal-day .num { font-weight: 500; color: var(--text-soft); font-size: 0.8rem; }
+  .cal-day.today .num { color: var(--rosso); }
+  .cal-day.muted { background: var(--surface-2); }
+  .cal-day.muted .num { color: var(--text-faint); }
+  .cal-event {
+    background: var(--blu);
+    color: var(--cream);
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+  .cal-event.rosso { background: var(--rosso); }
+  .cal-event.gold { background: var(--gold); }
+  .cal-event.olive { background: var(--olive); }
+
+  .activity-list { display: flex; flex-direction: column; }
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.86rem;
+  }
+  .activity-item:last-child { border-bottom: 0; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blu); flex-shrink: 0; }
+  .activity-dot.rosso { background: var(--rosso); }
+  .activity-dot.green { background: var(--green); }
+  .activity-time {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .form-row { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+  .form-row label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    font-size: 0.9rem;
+    background: var(--surface);
+    transition: border-color 0.15s;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none; border-color: var(--blu);
+  }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+
+  .demo-banner {
+    background: var(--gold);
+    color: var(--blu-night);
+    text-align: center;
+    padding: 0.45rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .demo-banner a { text-decoration: underline; margin-left: 0.5rem; }
+
+  .customer-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 100px 100px 80px;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .customer-row:last-child { border-bottom: 0; }
+  .customer-row .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--blu);
+    color: var(--cream);
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+  }
+  .customer-row .avatar.gold { background: var(--gold); color: var(--blu-night); }
+  .customer-row .avatar.olive { background: var(--olive); }
+  .customer-row .avatar.rosso { background: var(--rosso); }
+
+  @media (max-width: 880px) {
+    body { grid-template-columns: 1fr; }
+    .admin-sidebar {
+      position: relative;
+      height: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.5rem;
+    }
+    .admin-brand { padding: 0.4rem 0.8rem; border: 0; }
+    .admin-section-label { display: none; }
+    .admin-nav { flex: 1; display: flex; overflow-x: auto; padding: 0; }
+    .admin-tab {
+      padding: 0.5rem 0.85rem;
+      font-size: 0.78rem;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .admin-tab.is-active {
+      border-left: 0;
+      border-bottom-color: var(--rosso);
+      background: rgba(252, 250, 244, 0.08);
+    }
+    .admin-tab-icon { display: none; }
+    .admin-tab-badge { display: none; }
+    .admin-sidebar-footer { display: none; }
+    .admin-header { padding: 0 1rem; }
+    .admin-search { display: none; }
+    .admin-panel { padding: 1.25rem 1rem; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .menu-item-row { grid-template-columns: 1fr; gap: 0.4rem; padding: 0.85rem 1rem; }
+    .customer-row { grid-template-columns: 36px 1fr auto; gap: 0.5rem; }
+    .customer-row > :nth-child(3),
+    .customer-row > :nth-child(4) { display: none; }
+    .calendar { grid-template-columns: repeat(7, 1fr); font-size: 0.6rem; }
+    .cal-day { min-height: 50px; padding: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="admin-sidebar">
+  <div class="admin-brand">
+    <img src="assets/logo.jpg" alt="Fortezza" />
+    <div class="admin-brand-text">
+      <span class="admin-brand-name">FORTEZZA</span>
+      <span class="admin-brand-sub">Admin · Demo</span>
+    </div>
+  </div>
+
+  <div class="admin-section-label">Operations</div>
+  <nav class="admin-nav" id="adminNav">
+    <a class="admin-tab is-active" data-tab="dashboard" href="#dashboard">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      Dashboard
+    </a>
+    <a class="admin-tab" data-tab="orders" href="#orders">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Orders
+      <span class="admin-tab-badge" id="ordersBadge">7</span>
+    </a>
+    <a class="admin-tab" data-tab="menu" href="#menu">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></svg>
+      Menu Editor
+    </a>
+    <a class="admin-tab" data-tab="events" href="#events">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Events
+      <span class="admin-tab-badge">3</span>
+    </a>
+    <a class="admin-tab" data-tab="inventory" href="#inventory">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4"/></svg>
+      Inventory
+    </a>
+
+    <div class="admin-section-label">Insight</div>
+    <a class="admin-tab" data-tab="analytics" href="#analytics">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+      Analytics
+    </a>
+    <a class="admin-tab" data-tab="accounting" href="#accounting">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Accounting
+    </a>
+    <a class="admin-tab" data-tab="customers" href="#customers">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Customers
+    </a>
+
+    <div class="admin-section-label">System</div>
+    <a class="admin-tab" data-tab="staff" href="#staff">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Staff
+    </a>
+    <a class="admin-tab" data-tab="settings" href="#settings">
+      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </a>
+  </nav>
+
+  <div class="admin-sidebar-footer">
+    <div class="admin-avatar">M</div>
+    <div>
+      <div class="admin-user-name">Marco Castelli</div>
+      <div class="admin-user-role">Owner · Manager</div>
+    </div>
+  </div>
+</aside>
+
+<main class="admin-main">
+  <div class="demo-banner">
+    Demo console · live data is simulated
+    <a href="index.html">← Back to public site</a>
+  </div>
+
+  <header class="admin-header">
+    <div class="admin-header-title">
+      <h1 id="pageTitle">Dashboard</h1>
+      <span class="crumb" id="pageDate"></span>
+    </div>
+    <div class="admin-header-actions">
+      <input class="admin-search" type="search" placeholder="Search orders, items, customers…" />
+      <button class="btn">Export</button>
+      <button class="btn btn-primary">+ New Order</button>
+    </div>
+  </header>
+
+  <section class="admin-panel is-active" id="panel-dashboard">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">Today's revenue</div>
+        <div class="value" id="todayRevenue">$1,847.20</div>
+        <div class="delta up">▲ 12.4% vs yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Orders today</div>
+        <div class="value" id="todayOrders">87</div>
+        <div class="delta up">▲ 8 vs yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Avg ticket</div>
+        <div class="value">$21.23</div>
+        <div class="delta flat">— flat vs week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">New customers</div>
+        <div class="value">14</div>
+        <div class="delta up">▲ 3 vs yesterday</div>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Revenue, last 7 days</div>
+            <div class="card-sub" style="margin-top:4px;">Daily totals · MMXXVI · Week 32</div>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="filter-chip is-on">7d</button>
+            <button class="filter-chip">30d</button>
+            <button class="filter-chip">90d</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="bar-chart" id="dashChart"></div>
+          <div class="chart-axis" id="dashAxis"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Top items today</div>
+        </div>
+        <div class="card-body" style="padding: 0.7rem 1.25rem 1.25rem;">
+          <div id="topItems"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-2" style="margin-top: 1rem;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent orders</div>
+          <a href="#orders" class="card-sub" style="color: var(--blu);">View all →</a>
+        </div>
+        <div id="recentOrders"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Activity</div>
+        </div>
+        <div class="activity-list" id="activityList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-orders">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">All orders</div>
+          <div class="card-sub" style="margin-top:4px;">Live queue · auto-refresh 30s</div>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-sm">Print queue</button>
+          <button class="btn btn-sm btn-primary">+ New order</button>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-chip is-on" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="pending">Pending</button>
+        <button class="filter-chip" data-filter="ready">Ready</button>
+        <button class="filter-chip" data-filter="complete">Complete</button>
+        <button class="filter-chip" data-filter="cancel">Cancelled</button>
+        <span class="filter-chip-spacer"></span>
+        <span class="card-sub" id="ordersCount">14 orders</span>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Method</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-menu">
+    <div class="row-2">
+      <div class="card" style="overflow: visible;">
+        <div class="card-header">
+          <div class="card-title" id="menuCatTitle">Espresso</div>
+          <button class="btn btn-sm btn-primary">+ Add item</button>
+        </div>
+        <div id="menuItemsList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Categories</div>
+          <button class="btn btn-sm">+ New</button>
+        </div>
+        <div class="card-body">
+          <div class="menu-categories" id="menuCategories"></div>
+          <div style="margin-top: 1.25rem;">
+            <div class="card-sub" style="margin-bottom: 0.4rem;">Save state</div>
+            <button class="btn btn-rosso btn-sm" id="menuResetBtn">Reset to defaults</button>
+            <p style="font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-dim); margin-top: 0.5rem; line-height: 1.5;">
+              Edits persist locally (browser storage). The live menu pulls from this on next deploy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-events">
+    <div class="row-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="calMonth">August 2026</div>
+            <div class="card-sub" style="margin-top: 4px;">Catering &amp; private events</div>
+          </div>
+          <div style="display:flex; gap:0.4rem;">
+            <button class="btn btn-icon btn-sm">‹</button>
+            <button class="btn btn-icon btn-sm">›</button>
+            <button class="btn btn-sm btn-primary">+ Event</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="calendar" id="calendar"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Upcoming</div>
+          <span class="card-sub">3 booked</span>
+        </div>
+        <div id="eventsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-inventory">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">SKUs tracked</div>
+        <div class="value">42</div>
+        <div class="delta flat">— stable</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Low stock</div>
+        <div class="value" style="color: var(--red);">5</div>
+        <div class="delta down">▲ 2 since yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Reorder cost</div>
+        <div class="value">$1,124</div>
+        <div class="delta flat">— this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Last delivery</div>
+        <div class="value" style="font-size: 1.4rem;">Mon, 4 May</div>
+        <div class="delta flat">— Vergnano</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Stock levels</div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="filter-chip is-on">All</button>
+          <button class="filter-chip">Low only</button>
+          <button class="filter-chip">Beans</button>
+          <button class="filter-chip">Dairy</button>
+          <button class="filter-chip">Pastry</button>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Category</th>
+            <th>On hand</th>
+            <th>Par level</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="inventoryBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-analytics">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">Revenue (30d)</div>
+        <div class="value">$48,213</div>
+        <div class="delta up">▲ 18.2% MoM</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Orders (30d)</div>
+        <div class="value">2,184</div>
+        <div class="delta up">▲ 11% MoM</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Repeat rate</div>
+        <div class="value">48%</div>
+        <div class="delta up">▲ 4 pts</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">NPS</div>
+        <div class="value">72</div>
+        <div class="delta up">▲ 6 vs Q2</div>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Daily revenue, last 30 days</div>
+            <div class="card-sub" style="margin-top:4px;">Goal · $1,800/day</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="bar-chart" id="analyticsChart"></div>
+          <div class="chart-axis" id="analyticsAxis"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Revenue by category</div>
+        </div>
+        <div class="card-body" style="display: flex; align-items: center; gap: 1.2rem;">
+          <div class="donut" id="categoryDonut"></div>
+          <div style="flex: 1;" id="categoryLegend"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-2" style="margin-top: 1rem;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Peak hours · last 7 days</div>
+          <div class="card-sub">Darker = more orders</div>
+        </div>
+        <div class="card-body">
+          <div class="heatmap" id="heatmap"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Top 5 items by revenue</div>
+        </div>
+        <div id="topRevenue"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-accounting">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">Gross revenue (30d)</div>
+        <div class="value">$48,213</div>
+        <div class="delta up">▲ 18.2% MoM</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">COGS (30d)</div>
+        <div class="value">$15,108</div>
+        <div class="delta flat">31.3% margin</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Net profit</div>
+        <div class="value" style="color: var(--green);">$11,742</div>
+        <div class="delta up">▲ 24.3% MoM</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Tax estimate</div>
+        <div class="value">$2,348</div>
+        <div class="delta flat">Q3 set-aside</div>
+      </div>
+    </div>
+
+    <div class="row-2-eq">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Profit &amp; loss · this month</div>
+          <span class="card-sub">August MMXXVI</span>
+        </div>
+        <table class="data-table"><tbody id="plBody"></tbody></table>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Outstanding invoices</div>
+          <span class="card-sub">3 due</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Invoice</th><th>Client</th><th>Amount</th><th>Due</th><th>Status</th></tr>
+          </thead>
+          <tbody id="invoicesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-customers">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">Loyalty members</div>
+        <div class="value">487</div>
+        <div class="delta up">▲ 14 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Active (30d)</div>
+        <div class="value">312</div>
+        <div class="delta up">▲ 28 vs prev 30d</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Avg LTV</div>
+        <div class="value">$284</div>
+        <div class="delta up">▲ $12 MoM</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Top spender</div>
+        <div class="value" style="font-size: 1.4rem;">Devon K.</div>
+        <div class="delta flat">$1,452 lifetime</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Top customers</div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="filter-chip is-on">All</button>
+          <button class="filter-chip">Gold tier</button>
+          <button class="filter-chip">New (30d)</button>
+        </div>
+      </div>
+      <div id="customersBody"></div>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-staff">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">Staff on roster</div>
+        <div class="value">11</div>
+        <div class="delta flat">— full coverage</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">On the floor now</div>
+        <div class="value">4</div>
+        <div class="delta flat">— Marco, Sofia, Lia, Tom</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Hours this week</div>
+        <div class="value">312</div>
+        <div class="delta flat">$4,680 payroll</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Open shifts</div>
+        <div class="value" style="color: var(--amber);">2</div>
+        <div class="delta down">Sat 2-5p, Sun morning</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Roster</div>
+        <button class="btn btn-sm btn-primary">+ Add staff</button>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Phone</th>
+            <th>This week</th>
+            <th>Wage</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="staffBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="admin-panel" id="panel-settings">
+    <div class="row-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Business hours</div>
+          <button class="btn btn-sm">Save</button>
+        </div>
+        <div class="card-body" id="hoursForm"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Café details</div>
+        </div>
+        <div class="card-body">
+          <div class="form-row">
+            <label>Business name</label>
+            <input value="Fortezza Coffee" />
+          </div>
+          <div class="form-row">
+            <label>Tagline</label>
+            <input value="il caffè della fortezza" />
+          </div>
+          <div class="form-row-2">
+            <div class="form-row">
+              <label>Phone</label>
+              <input value="(260) 422-1882" />
+            </div>
+            <div class="form-row">
+              <label>Email</label>
+              <input value="ciao@fortezzacoffee.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Address</label>
+            <input value="215 E Berry St, Fort Wayne, IN 46802" />
+          </div>
+          <div class="form-row-2">
+            <div class="form-row">
+              <label>Tax rate</label>
+              <input value="7.0%" />
+            </div>
+            <div class="form-row">
+              <label>Currency</label>
+              <select><option>USD</option><option>CAD</option><option>EUR</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-2" style="margin-top: 1rem;">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Integrations</div></div>
+        <div id="integrations"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Danger zone</div></div>
+        <div class="card-body">
+          <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.85rem;">
+            Reset all menu edits, demo orders, and inventory state stored in your browser. The public site is unaffected.
+          </p>
+          <button class="btn btn-rosso btn-sm" id="resetAllBtn">Reset demo state</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// FORTEZZA ADMIN — single-file SPA, hash routing, mock data, localStorage
+// All DOM construction uses document.createElement/textContent — no innerHTML setters.
+(() => {
+  // ---------- Safe DOM helpers ----------
+  // el(tag, props, ...children) — children are strings (text nodes) or DOM nodes only.
+  // No "html" prop, no innerHTML usage. Safe by construction.
+  const el = (tag, props = {}, ...children) => {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === 'class') node.className = v;
+      else if (k === 'dataset') Object.assign(node.dataset, v);
+      else if (k === 'style') node.setAttribute('style', v);
+      else if (k.startsWith('aria-')) node.setAttribute(k, v);
+      else if (k.startsWith('data-')) node.setAttribute(k, v);
+      else if (k in node) node[k] = v;
+      else node.setAttribute(k, v);
+    }
+    for (const c of children) {
+      if (c == null || c === false) continue;
+      node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+    return node;
+  };
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const clear = (n) => { while (n && n.firstChild) n.removeChild(n.firstChild); };
+
+  // ---------- Tab routing ----------
+  const TABS = ['dashboard','orders','menu','events','inventory','analytics','accounting','customers','staff','settings'];
+  const TITLES = {
+    dashboard: 'Dashboard', orders: 'Orders', menu: 'Menu Editor', events: 'Events',
+    inventory: 'Inventory', analytics: 'Analytics', accounting: 'Accounting',
+    customers: 'Customers', staff: 'Staff', settings: 'Settings'
+  };
+  const setTab = (tab) => {
+    if (!TABS.includes(tab)) tab = 'dashboard';
+    $$('.admin-tab').forEach(t => t.classList.toggle('is-active', t.dataset.tab === tab));
+    $$('.admin-panel').forEach(p => p.classList.toggle('is-active', p.id === 'panel-' + tab));
+    $('#pageTitle').textContent = TITLES[tab];
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+  window.addEventListener('hashchange', () => setTab(location.hash.slice(1)));
+  setTab((location.hash || '#dashboard').slice(1));
+
+  // ---------- Mock data ----------
+  const orders = [
+    { id: 'FZ-A4M2K9', customer: 'Devon Kowalski', items: 'Cavaliere · Cornetto · Tiramisù', qty: 3, method: 'In-person', total: 18.95, status: 'pending', time: '2 min ago' },
+    { id: 'FZ-B7P1Q3', customer: 'Sarah Romero', items: 'Cappuccino · Sfogliatella', qty: 2, method: 'Curbside', total: 10.90, status: 'pending', time: '4 min ago' },
+    { id: 'FZ-C2N8R5', customer: 'Marcus Tanaka', items: 'Doppio · Cornetto · Biscotti', qty: 3, method: 'In-person', total: 12.00, status: 'ready', time: '7 min ago' },
+    { id: 'FZ-D9K3W2', customer: 'Lia Hernández', items: 'Pistacchio gelato (cup)', qty: 1, method: 'In-person', total: 6.50, status: 'ready', time: '8 min ago' },
+    { id: 'FZ-E5J6T8', customer: 'Office · Brackett & Co.', items: 'Catering: 12 cornetti, 2gal cold brew', qty: 14, method: 'Catering', total: 142.00, status: 'pending', time: '11 min ago' },
+    { id: 'FZ-F1L4M7', customer: 'James Park', items: 'Visconti panino · Cappuccino', qty: 2, method: 'Curbside', total: 18.90, status: 'complete', time: '23 min ago' },
+    { id: 'FZ-G8H2N4', customer: 'Maria DiSalvo', items: 'Affogato · Cannolo Siciliano', qty: 2, method: 'In-person', total: 12.00, status: 'complete', time: '31 min ago' },
+    { id: 'FZ-H6Q9P1', customer: 'Tom Becker', items: 'Espresso × 4', qty: 4, method: 'In-person', total: 14.00, status: 'complete', time: '42 min ago' },
+    { id: 'FZ-J3V7K0', customer: 'Sofia Marchetti', items: 'Latte · Olive oil cake', qty: 2, method: 'Curbside', total: 11.20, status: 'complete', time: '54 min ago' },
+    { id: 'FZ-K2L5W8', customer: 'Anonymous', items: 'Drip coffee · Biscotti', qty: 2, method: 'In-person', total: 6.50, status: 'cancel', time: '1h ago' },
+    { id: 'FZ-L7M4N9', customer: 'Devon Kowalski', items: 'Cavaliere · Cornetto', qty: 2, method: 'In-person', total: 10.75, status: 'complete', time: '2h ago' },
+    { id: 'FZ-M9P6Q3', customer: 'Carla Vespa', items: 'Cortado · Sfogliatella', qty: 2, method: 'In-person', total: 10.45, status: 'complete', time: '2h ago' },
+    { id: 'FZ-N1R8S5', customer: 'Marcus Tanaka', items: 'Doppio · Cornetto', qty: 2, method: 'Curbside', total: 8.75, status: 'complete', time: '3h ago' },
+    { id: 'FZ-P4T2V7', customer: 'Office · Wells Library', items: 'Catering: pastry box (24)', qty: 24, method: 'Catering', total: 96.00, status: 'complete', time: '4h ago' }
+  ];
+  $('#ordersBadge').textContent = String(orders.filter(o => o.status === 'pending').length);
+
+  // ---------- DASHBOARD ----------
+  const renderDashChart = () => {
+    const data = [1420, 1680, 1230, 1845, 2110, 1956, 1847];
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const max = Math.max(...data);
+    const chart = $('#dashChart'); const axis = $('#dashAxis');
+    clear(chart); clear(axis);
+    data.forEach((v, i) => {
+      chart.appendChild(el('div', {
+        class: i === data.length - 1 ? 'bar bar-rosso' : 'bar',
+        style: 'height: ' + ((v / max) * 100) + '%',
+        'data-value': '$' + v.toLocaleString()
+      }));
+      axis.appendChild(el('span', {}, days[i]));
+    });
+  };
+
+  const renderTopItems = () => {
+    const items = [
+      { name: 'Cappuccino',           qty: 23, share: 0.95 },
+      { name: 'Cornetto',             qty: 19, share: 0.79 },
+      { name: 'Cavaliere (signature)',qty: 14, share: 0.58 },
+      { name: 'Visconti panino',      qty: 11, share: 0.46 },
+      { name: 'Pistacchio gelato',    qty:  9, share: 0.38 },
+      { name: 'Sfogliatella',         qty:  8, share: 0.33 }
+    ];
+    const list = $('#topItems'); clear(list);
+    items.forEach((it, i) => {
+      list.appendChild(el('div', { style: 'display: flex; align-items: center; gap: 0.8rem; padding: 0.55rem 0;' },
+        el('span', { style: 'font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); width: 16px;' }, String(i + 1)),
+        el('div', { style: 'flex:1; min-width: 0;' },
+          el('div', { style: 'font-size: 0.88rem; font-weight: 500;' }, it.name),
+          el('div', { class: 'progress' }, el('span', { style: 'width: ' + (it.share * 100) + '%' }))
+        ),
+        el('div', { style: 'font-family: var(--font-mono); font-size: 0.78rem; color: var(--rosso);' }, '×' + it.qty)
+      ));
+    });
+  };
+
+  const renderRecentOrders = () => {
+    const list = $('#recentOrders'); clear(list);
+    orders.slice(0, 5).forEach(o => {
+      const row = el('div', { style: 'display: grid; grid-template-columns: 100px 1fr auto auto; gap: 0.7rem; padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border); align-items: center;' });
+      row.appendChild(el('span', { class: 'order-id' }, o.id));
+      row.appendChild(el('div', {},
+        el('div', { style: 'font-size: 0.88rem; font-weight: 500;' }, o.customer),
+        el('div', { style: 'font-size: 0.78rem; color: var(--text-dim);' }, o.items)
+      ));
+      row.appendChild(el('span', { class: 'pill pill-' + o.status }, o.status));
+      row.appendChild(el('span', { style: 'font-family: var(--font-mono); color: var(--rosso); font-size: 0.85rem;' }, '$' + o.total.toFixed(2)));
+      list.appendChild(row);
+    });
+  };
+
+  const renderActivity = () => {
+    const events = [
+      { dot: 'rosso', text: 'New catering inquiry — Brackett & Co. (12 cornetti)', time: '2 min' },
+      { dot: 'green', text: 'Devon K. became Gold tier (10th visit)', time: '14 min' },
+      { dot: '',      text: 'Vergnano shipment confirmed for Mon 4 May', time: '1h' },
+      { dot: 'green', text: 'Lia logged in for 7am shift', time: '2h' },
+      { dot: 'rosso', text: 'Low stock — Pistacchio paste (2 bags)', time: '3h' },
+      { dot: '',      text: 'Sunday brunch event added to calendar', time: '4h' }
+    ];
+    const list = $('#activityList'); clear(list);
+    events.forEach(e => {
+      list.appendChild(el('div', { class: 'activity-item' },
+        el('span', { class: 'activity-dot ' + e.dot }),
+        el('span', {}, e.text),
+        el('span', { class: 'activity-time' }, e.time)
+      ));
+    });
+  };
+
+  // ---------- ORDERS ----------
+  const renderOrders = (filter = 'all') => {
+    const body = $('#ordersBody'); clear(body);
+    const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter);
+    $('#ordersCount').textContent = filtered.length + ' orders';
+    filtered.forEach(o => {
+      const tr = el('tr');
+      tr.appendChild(el('td', {}, el('span', { class: 'order-id' }, o.id)));
+      tr.appendChild(el('td', {}, o.customer));
+      tr.appendChild(el('td', {},
+        o.items + ' ',
+        el('span', { style: 'color: var(--text-dim); font-size: 0.78rem;' }, '×' + o.qty)
+      ));
+      tr.appendChild(el('td', {}, el('span', { class: 'card-sub' }, o.method)));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono); color: var(--rosso); font-weight: 500;' }, '$' + o.total.toFixed(2)));
+      tr.appendChild(el('td', {}, el('span', { class: 'pill pill-' + o.status }, o.status)));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em;' }, o.time));
+      tr.appendChild(el('td', {}, el('button', { class: 'btn btn-sm' }, '⋯')));
+      body.appendChild(tr);
+    });
+  };
+  $$('.filter-chip[data-filter]').forEach(b => {
+    b.addEventListener('click', () => {
+      $$('.filter-chip[data-filter]').forEach(x => x.classList.remove('is-on'));
+      b.classList.add('is-on');
+      renderOrders(b.dataset.filter);
+    });
+  });
+
+  // ---------- MENU EDITOR ----------
+  const DEFAULT_MENU = {
+    espresso: { label: 'Espresso', items: [
+      { name: 'Espresso',     desc: 'Single shot, the original — pulled at 9 bars, 25s.', price: 3.50,  active: true },
+      { name: 'Doppio',       desc: 'Double shot. The standard at any Torinese bar.',     price: 4.25,  active: true },
+      { name: 'Macchiato',    desc: 'Espresso "marked" with steamed milk foam.',          price: 3.95,  active: true },
+      { name: 'Cortado',      desc: 'Equal parts espresso and warm milk.',                price: 4.50,  active: true },
+      { name: 'Cappuccino',   desc: 'A third espresso, milk, foam. Before noon.',         price: 4.95,  active: true },
+      { name: 'Latte',        desc: 'Steamed milk, two shots, thin foam layer.',          price: 5.25,  active: true },
+      { name: 'Flat White',   desc: 'Double ristretto under microfoam.',                  price: 5.25,  active: true },
+      { name: 'Affogato',     desc: 'Vanilla gelato drowned in fresh espresso.',          price: 6.50,  active: true },
+      { name: 'Shakerato',    desc: 'Espresso shaken with ice until frothy.',             price: 5.50,  active: true },
+      { name: 'Cavaliere',    desc: 'Signature: doppio under sweet cream and cocoa dust.',price: 6.25,  active: true }
+    ]},
+    'brew-tea': { label: 'Brew & Tea', items: [
+      { name: 'Drip Coffee',   desc: 'Two daily roasts.',                                 price: 3.25,  active: true },
+      { name: 'Pour-Over',     desc: 'V60 method, 4-minute pour, single-origin.',         price: 5.50,  active: true },
+      { name: 'Cold Brew',     desc: '24-hour steep. Smooth, sweet, no acid.',            price: 4.75,  active: true },
+      { name: 'Espresso Tonic',desc: 'Espresso, Fever-Tree tonic, lemon.',                price: 5.95,  active: true },
+      { name: 'Hot Chocolate', desc: 'Dark chocolate melted into whole milk.',            price: 5.25,  active: true },
+      { name: 'Tea (loose)',   desc: 'Earl grey · breakfast · chamomile · jasmine.',      price: 3.75,  active: true },
+      { name: 'Matcha Latte',  desc: 'Ceremonial-grade, whisked, hot or iced.',           price: 5.50,  active: true },
+      { name: 'Chai Latte',    desc: 'House-spiced, steamed, honey.',                     price: 5.25,  active: true }
+    ]},
+    gelato: { label: 'Gelato', items: [
+      { name: 'Fior di Latte',     desc: 'Pure cream and milk. The benchmark.',           price: 5.50,  active: true },
+      { name: 'Pistacchio di Bronte', desc: 'Sicilian Bronte pistachios.',                price: 6.50,  active: true },
+      { name: 'Stracciatella',     desc: 'Fior di latte with hand-folded chocolate.',     price: 5.95,  active: true },
+      { name: 'Caffè Vergnano',    desc: 'Made with our espresso. Adults only.',          price: 5.95,  active: true },
+      { name: 'Nocciola',          desc: 'Piedmont hazelnuts, deep-roasted.',             price: 5.95,  active: true },
+      { name: 'Limone',            desc: 'Sicilian lemon sorbetto, dairy-free.',          price: 5.50,  active: true },
+      { name: 'Cioccolato Fondente', desc: '70% dark chocolate.',                         price: 5.95,  active: true },
+      { name: 'Tartufo',           desc: 'Cioccolato wrapped in cocoa, hidden cherry.',   price: 7.50,  active: true }
+    ]},
+    panini: { label: 'Panini', items: [
+      { name: 'Caprese',           desc: 'Mozzarella, vine tomato, basil, olive oil.',    price: 11.50, active: true },
+      { name: 'Visconti',          desc: 'Prosciutto di Parma, fontina, fig jam.',        price: 13.95, active: true },
+      { name: 'Prosciutto e Funghi', desc: 'Prosciutto, mushrooms, fontina, truffle oil.',price: 13.50, active: true },
+      { name: 'Pollo Pesto',       desc: 'Grilled chicken, pesto, sun-dried tomato.',     price: 12.95, active: true },
+      { name: 'Breakfast Panino',  desc: 'Egg, pancetta, fontina, arugula. Until 11A.',   price: 10.50, active: true },
+      { name: 'Insalata della Casa', desc: 'Arugula, parmigiano, lemon, pine nuts.',      price: 11.50, active: true }
+    ]},
+    dolci: { label: 'Dolci', items: [
+      { name: 'Cornetto',          desc: 'Italian croissant — softer, sweeter.',          price: 4.50,  active: true },
+      { name: 'Sfogliatella',      desc: 'Lobster-tail pastry, ricotta filling.',         price: 5.95,  active: true },
+      { name: 'Biscotti',          desc: 'Almond · pistachio · chocolate-orange.',        price: 3.25,  active: true },
+      { name: 'Tiramisù Coppa',    desc: 'Mascarpone, espresso-soaked savoiardi.',        price: 7.50,  active: true },
+      { name: 'Cannolo Siciliano', desc: 'Crisp shell, ricotta, candied orange.',         price: 5.50,  active: true },
+      { name: 'Olive Oil Cake',    desc: 'Lemon, rosemary, single slice.',                price: 5.95,  active: true },
+      { name: 'Bocconotto',        desc: 'Tiny shortcrust tart, chocolate-almond.',       price: 4.50,  active: true }
+    ]},
+    beans: { label: 'Beans to Go', items: [
+      { name: 'Antica Bottega · House Blend', desc: '12oz, smooth balanced.',             price: 22.00, active: true },
+      { name: 'Espresso Bar 1882', desc: '12oz, espresso roast.',                         price: 24.00, active: true },
+      { name: 'Decaffeinato',      desc: '12oz, water-process decaf.',                    price: 23.00, active: true }
+    ]}
+  };
+  const MENU_KEY = 'fortezzaAdminMenu';
+  const loadMenu = () => {
+    try { return JSON.parse(localStorage.getItem(MENU_KEY)) || JSON.parse(JSON.stringify(DEFAULT_MENU)); }
+    catch { return JSON.parse(JSON.stringify(DEFAULT_MENU)); }
+  };
+  const saveMenu = (m) => localStorage.setItem(MENU_KEY, JSON.stringify(m));
+
+  let menu = loadMenu();
+  let activeCat = 'espresso';
+
+  const renderMenuCategories = () => {
+    const list = $('#menuCategories'); clear(list);
+    Object.entries(menu).forEach(([key, cat]) => {
+      const item = el('div', {
+        class: 'cat-item' + (key === activeCat ? ' is-active' : ''),
+        dataset: { cat: key }
+      },
+        el('span', {}, cat.label),
+        el('span', { class: 'count' }, String(cat.items.length))
+      );
+      item.addEventListener('click', () => { activeCat = key; renderMenuCategories(); renderMenuItems(); });
+      list.appendChild(item);
+    });
+  };
+
+  const renderMenuItems = () => {
+    const cat = menu[activeCat];
+    $('#menuCatTitle').textContent = cat.label;
+    const list = $('#menuItemsList'); clear(list);
+    cat.items.forEach(item => {
+      const row = el('div', { class: 'menu-item-row' });
+      row.appendChild(el('div', {},
+        el('div', { class: 'menu-item-name' }, item.name),
+        el('div', { class: 'menu-item-desc' }, item.desc)
+      ));
+      const priceInput = el('input', { value: item.price.toFixed(2), type: 'number', step: '0.25' });
+      priceInput.addEventListener('change', () => {
+        item.price = parseFloat(priceInput.value) || item.price;
+        saveMenu(menu);
+      });
+      row.appendChild(el('div', { class: 'menu-item-price' },
+        el('span', { style: 'margin-right: 4px;' }, '$'),
+        priceInput
+      ));
+      const toggle = el('div', { class: 'toggle', dataset: { on: String(item.active) } });
+      toggle.addEventListener('click', () => {
+        item.active = !item.active;
+        toggle.dataset.on = String(item.active);
+        statusEl.textContent = item.active ? 'Available' : 'Sold out';
+        saveMenu(menu);
+      });
+      const statusEl = el('span', { class: 'card-sub', style: 'font-size: 0.55rem;' }, item.active ? 'Available' : 'Sold out');
+      row.appendChild(el('div', { style: 'display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;' },
+        toggle, statusEl
+      ));
+      row.appendChild(el('div', { style: 'display: flex; gap: 4px; justify-content: flex-end;' },
+        el('button', { class: 'btn btn-sm', title: 'Edit' }, '✎')
+      ));
+      list.appendChild(row);
+    });
+  };
+
+  $('#menuResetBtn')?.addEventListener('click', () => {
+    if (!confirm('Reset all menu edits to defaults?')) return;
+    localStorage.removeItem(MENU_KEY);
+    menu = loadMenu();
+    renderMenuCategories();
+    renderMenuItems();
+  });
+
+  // ---------- EVENTS / CALENDAR ----------
+  const renderCalendar = () => {
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const cal = $('#calendar'); clear(cal);
+    days.forEach(d => cal.appendChild(el('div', { class: 'cal-head' }, d)));
+    const events = {
+      8:  [{ name: 'Pastry box · Wells Library', cls: 'gold' }],
+      12: [{ name: 'Wedding · Visconti', cls: 'rosso' }],
+      14: [{ name: 'Coffee tasting (private)', cls: '' }],
+      18: [{ name: 'Brackett & Co. office breakfast', cls: 'olive' }],
+      22: [{ name: 'Saturday brunch event', cls: 'rosso' }],
+      28: [{ name: 'Fall menu launch', cls: 'gold' }]
+    };
+    const today = 14;
+    const startOffset = 5;
+    const totalDays = 31;
+    let cellCount = 0;
+    for (let i = 0; i < startOffset; i++) {
+      cellCount++;
+      cal.appendChild(el('div', { class: 'cal-day muted' }, el('span', { class: 'num' }, String(26 + i))));
+    }
+    for (let d = 1; d <= totalDays; d++) {
+      cellCount++;
+      const day = el('div', { class: 'cal-day' + (d === today ? ' today' : '') },
+        el('span', { class: 'num' }, String(d))
+      );
+      (events[d] || []).forEach(ev => day.appendChild(el('div', { class: 'cal-event ' + ev.cls }, ev.name)));
+      cal.appendChild(day);
+    }
+    while (cellCount % 7 !== 0) {
+      cellCount++;
+      cal.appendChild(el('div', { class: 'cal-day muted' }, el('span', { class: 'num' }, String(cellCount - startOffset - totalDays))));
+    }
+  };
+
+  const renderEventsList = () => {
+    const events = [
+      { date: 'Wed · 12 Aug', title: 'Wedding catering · Visconti', client: 'Visconti family wedding · 80 guests', amount: '$1,840' },
+      { date: 'Tue · 18 Aug', title: 'Office breakfast · Brackett & Co.', client: '12 cornetti, 2gal cold brew, espresso bar', amount: '$295' },
+      { date: 'Sat · 22 Aug', title: 'Saturday brunch event', client: '40 covers, prix-fixe brunch', amount: '$1,140' }
+    ];
+    const list = $('#eventsList'); clear(list);
+    events.forEach(ev => {
+      list.appendChild(el('div', { style: 'padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.4rem;' },
+        el('div', { style: 'display:flex; justify-content: space-between; align-items: baseline;' },
+          el('span', { class: 'card-sub', style: 'color: var(--rosso);' }, ev.date),
+          el('span', { style: 'font-family: var(--font-mono); color: var(--rosso); font-size: 0.85rem;' }, ev.amount)
+        ),
+        el('div', { style: 'font-family: var(--font-display); font-size: 1.05rem;' }, ev.title),
+        el('div', { style: 'font-size: 0.82rem; color: var(--text-dim);' }, ev.client)
+      ));
+    });
+  };
+
+  // ---------- INVENTORY ----------
+  const renderInventory = () => {
+    const items = [
+      { item: 'Caffè Vergnano · House Blend', cat: 'Beans',     onHand: 18,  par: 24, status: 'stocked' },
+      { item: 'Espresso Bar 1882',            cat: 'Beans',     onHand: 6,   par: 12, status: 'low' },
+      { item: 'Decaffeinato',                 cat: 'Beans',     onHand: 9,   par: 8,  status: 'stocked' },
+      { item: 'Whole milk',                   cat: 'Dairy',     onHand: 24,  par: 30, status: 'stocked' },
+      { item: 'Oat milk',                     cat: 'Dairy',     onHand: 4,   par: 12, status: 'low' },
+      { item: 'Mascarpone',                   cat: 'Dairy',     onHand: 8,   par: 6,  status: 'stocked' },
+      { item: 'Cornetti dough',               cat: 'Pastry',    onHand: 12,  par: 24, status: 'low' },
+      { item: 'Pistacchio paste (Bronte)',    cat: 'Pastry',    onHand: 2,   par: 6,  status: 'low' },
+      { item: 'Italian flour (00)',           cat: 'Pastry',    onHand: 4,   par: 8,  status: 'low' },
+      { item: 'Demitasse cups',               cat: 'Equipment', onHand: 48,  par: 36, status: 'stocked' },
+      { item: 'Takeaway cups (12oz)',         cat: 'Packaging', onHand: 1200,par: 800,status: 'stocked' }
+    ];
+    const body = $('#inventoryBody'); clear(body);
+    items.forEach(it => {
+      const pct = Math.min((it.onHand / it.par) * 100, 100);
+      const tr = el('tr');
+      tr.appendChild(el('td', { style: 'font-weight: 500;' }, it.item));
+      tr.appendChild(el('td', { style: 'color: var(--text-dim); font-size: 0.85rem;' }, it.cat));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono);' }, String(it.onHand)));
+      tr.appendChild(el('td', { style: 'color: var(--text-dim); font-family: var(--font-mono); font-size: 0.85rem;' }, String(it.par)));
+      tr.appendChild(el('td', {}, el('div', { class: 'progress ' + (it.status === 'low' ? 'red' : 'green'), style: 'width: 90px; margin: 0;' },
+        el('span', { style: 'width: ' + pct + '%' })
+      )));
+      tr.appendChild(el('td', {}, el('span', { class: 'pill pill-' + it.status }, it.status)));
+      tr.appendChild(el('td', {}, el('button', { class: 'btn btn-sm' }, 'Reorder')));
+      body.appendChild(tr);
+    });
+  };
+
+  // ---------- ANALYTICS ----------
+  const renderAnalyticsChart = () => {
+    const data = [];
+    for (let i = 0; i < 30; i++) {
+      const base = 1500 + (i % 7 === 5 || i % 7 === 6 ? 600 : 0);
+      data.push(Math.round(base + Math.sin(i / 2) * 200 + (Math.random() * 200)));
+    }
+    const max = Math.max(...data);
+    const chart = $('#analyticsChart'); const axis = $('#analyticsAxis');
+    clear(chart); clear(axis);
+    data.forEach(v => {
+      chart.appendChild(el('div', {
+        class: 'bar',
+        style: 'height: ' + ((v / max) * 100) + '%',
+        'data-value': '$' + v.toLocaleString()
+      }));
+    });
+    [' 30d ago', '20d', '10d', 'Today'].forEach(label => axis.appendChild(el('span', {}, label)));
+  };
+
+  const renderCategoryDonut = () => {
+    const cats = [
+      { name: 'Espresso',  pct: 38, color: '#1E3A8C' },
+      { name: 'Panini',    pct: 22, color: '#DC2626' },
+      { name: 'Gelato',    pct: 14, color: '#C9A24E' },
+      { name: 'Dolci',     pct: 12, color: '#4F6F3A' },
+      { name: 'Brew/Tea',  pct: 10, color: '#6878A0' },
+      { name: 'Beans (TG)',pct:  4, color: '#B8865D' }
+    ];
+    let cumPct = 0;
+    const stops = cats.map(c => {
+      const start = cumPct;
+      cumPct += c.pct;
+      return c.color + ' ' + start + '% ' + cumPct + '%';
+    }).join(', ');
+    const donut = $('#categoryDonut');
+    clear(donut);
+    donut.style.background = 'conic-gradient(' + stops + ')';
+    const labelDiv = el('div', { class: 'donut-label' },
+      el('div', { class: 'big' }, '$48k'),
+      el('div', { class: 'sm' }, '30 days')
+    );
+    donut.appendChild(labelDiv);
+
+    const legend = $('#categoryLegend'); clear(legend);
+    cats.forEach(c => {
+      legend.appendChild(el('div', { style: 'display: flex; align-items: center; gap: 0.6rem; padding: 0.32rem 0; font-size: 0.85rem;' },
+        el('span', { style: 'width: 10px; height: 10px; border-radius: 50%; background: ' + c.color + '; flex-shrink: 0;' }),
+        el('span', { style: 'flex: 1;' }, c.name),
+        el('span', { style: 'font-family: var(--font-mono); color: var(--text-dim);' }, c.pct + '%')
+      ));
+    });
+  };
+
+  const renderHeatmap = () => {
+    const heatmap = $('#heatmap'); clear(heatmap);
+    const hours = ['7-9a', '9-11a', '11a-1p', '1-3p', '3-5p', '5-7p'];
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    heatmap.appendChild(el('div', { class: 'label' }));
+    days.forEach(d => heatmap.appendChild(el('div', { class: 'label' }, d)));
+    const data = [
+      [4,4,4,4,5,3,3], [3,3,3,3,4,5,5], [4,4,5,5,5,5,4],
+      [3,3,3,3,3,4,3], [2,2,2,2,3,3,2], [2,2,2,2,2,1,1]
+    ];
+    hours.forEach((label, ri) => {
+      heatmap.appendChild(el('div', { class: 'label' }, label));
+      data[ri].forEach(v => heatmap.appendChild(el('div', { class: 'cell', 'data-v': String(v) })));
+    });
+  };
+
+  const renderTopRevenue = () => {
+    const items = [
+      { name: 'Cappuccino',           rev: 4280, share: 1.0  },
+      { name: 'Visconti panino',      rev: 3920, share: 0.92 },
+      { name: 'Cavaliere (signature)',rev: 3260, share: 0.76 },
+      { name: 'Cornetto',             rev: 2840, share: 0.66 },
+      { name: 'Pistacchio gelato',    rev: 2410, share: 0.56 }
+    ];
+    const list = $('#topRevenue'); clear(list);
+    items.forEach((it, i) => {
+      const row = el('div', { style: 'display: grid; grid-template-columns: 16px 1fr auto; gap: 0.7rem; align-items: center; padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--border);' });
+      row.appendChild(el('span', { style: 'font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim);' }, String(i + 1)));
+      row.appendChild(el('div', {},
+        el('div', { style: 'font-size: 0.88rem; font-weight: 500;' }, it.name),
+        el('div', { class: 'progress' }, el('span', { style: 'width: ' + (it.share * 100) + '%' }))
+      ));
+      row.appendChild(el('div', { style: 'font-family: var(--font-mono); color: var(--rosso); font-size: 0.85rem;' }, '$' + it.rev.toLocaleString()));
+      list.appendChild(row);
+    });
+  };
+
+  // ---------- ACCOUNTING ----------
+  const renderPL = () => {
+    const lines = [
+      { label: 'Coffee + drinks',     amount: 28420 },
+      { label: 'Food (panini, dolci)',amount: 12860 },
+      { label: 'Gelato',               amount: 3640  },
+      { label: 'Beans-to-go',          amount: 1480  },
+      { label: 'Catering',             amount: 1813  },
+      { label: 'Gross revenue',        amount: 48213, bold: true },
+      { label: 'COGS · ingredients',   amount: -10240 },
+      { label: 'COGS · packaging',     amount: -2120  },
+      { label: 'COGS · staff cost',    amount: -2748  },
+      { label: 'Gross margin',         amount: 33105, bold: true, color: 'var(--green)' },
+      { label: 'Rent',                 amount: -4200 },
+      { label: 'Payroll (admin)',      amount: -8900 },
+      { label: 'Utilities',            amount: -680  },
+      { label: 'Marketing',            amount: -420  },
+      { label: 'Software / POS',       amount: -180  },
+      { label: 'Other',                amount: -260  },
+      { label: 'Operating profit',     amount: 18465, bold: true, color: 'var(--green)' },
+      { label: 'Tax estimate (Q3)',    amount: -2348 },
+      { label: 'Net profit',           amount: 16117, bold: true, color: 'var(--green)' }
+    ];
+    const body = $('#plBody'); clear(body);
+    lines.forEach(l => {
+      const tr = el('tr');
+      tr.appendChild(el('td', { style: 'font-weight: ' + (l.bold ? '600' : '400') + ';' }, l.label));
+      const colorVal = l.color || (l.amount < 0 ? 'var(--text-soft)' : 'var(--text)');
+      tr.appendChild(el('td', { style: 'text-align: right; font-family: var(--font-mono); color: ' + colorVal + '; font-weight: ' + (l.bold ? '600' : '400') + ';' },
+        (l.amount < 0 ? '−$' : '$') + Math.abs(l.amount).toLocaleString()
+      ));
+      body.appendChild(tr);
+    });
+  };
+
+  const renderInvoices = () => {
+    const inv = [
+      { num: 'INV-0231', client: 'Brackett & Co.',    amount: 295,  due: 'Aug 22', status: 'due' },
+      { num: 'INV-0228', client: 'Visconti wedding',  amount: 1840, due: 'Aug 26', status: 'due' },
+      { num: 'INV-0226', client: 'Wells Library',     amount: 96,   due: 'Aug 18', status: 'due' },
+      { num: 'INV-0220', client: 'IPFW athletics',    amount: 415,  due: 'Aug 4',  status: 'paid' }
+    ];
+    const body = $('#invoicesBody'); clear(body);
+    inv.forEach(i => {
+      const tr = el('tr');
+      tr.appendChild(el('td', {}, el('span', { class: 'order-id' }, i.num)));
+      tr.appendChild(el('td', {}, i.client));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono); color: var(--rosso);' }, '$' + i.amount.toLocaleString()));
+      tr.appendChild(el('td', { class: 'card-sub' }, i.due));
+      tr.appendChild(el('td', {}, el('span', { class: 'pill pill-' + i.status }, i.status)));
+      body.appendChild(tr);
+    });
+  };
+
+  // ---------- CUSTOMERS ----------
+  const renderCustomers = () => {
+    const customers = [
+      { name: 'Devon Kowalski',  email: 'devon.k@gmail.com',     orders: 47, ltv: 1452, tier: 'Gold',   color: 'gold' },
+      { name: 'Marcus Tanaka',   email: 'marcus.t@iu.edu',       orders: 38, ltv: 1184, tier: 'Gold',   color: 'gold' },
+      { name: 'Sarah Romero',    email: 'sarah.romero@cs.com',   orders: 32, ltv: 982,  tier: 'Gold',   color: 'gold' },
+      { name: 'James Park',      email: 'jp.park@parkway.io',    orders: 28, ltv: 814,  tier: 'Silver', color: 'rosso' },
+      { name: 'Maria DiSalvo',   email: 'maria@disalvolaw.com',  orders: 24, ltv: 760,  tier: 'Silver', color: 'rosso' },
+      { name: 'Lia Hernández',   email: 'lia@fortezza.coffee',   orders: 22, ltv: 528,  tier: 'Staff',  color: 'olive' },
+      { name: 'Tom Becker',      email: 'tbecker@beckerlaw.com', orders: 19, ltv: 642,  tier: 'Silver', color: 'rosso' },
+      { name: 'Sofia Marchetti', email: 'sofia.m@gmail.com',     orders: 16, ltv: 488,  tier: 'Silver', color: 'rosso' },
+      { name: 'Carla Vespa',     email: 'carla@vespa-design.com',orders: 14, ltv: 412,  tier: 'Bronze', color: '' },
+      { name: 'Anna Romano',     email: 'anna.romano@me.com',    orders: 11, ltv: 326,  tier: 'Bronze', color: '' }
+    ];
+    const body = $('#customersBody'); clear(body);
+    customers.forEach(c => {
+      const initial = c.name.split(' ').map(p => p[0]).join('').slice(0, 2);
+      const tierColor = c.color === 'gold' ? 'var(--gold)' : c.color === 'olive' ? 'var(--olive)' : 'var(--text-dim)';
+      body.appendChild(el('div', { class: 'customer-row' },
+        el('div', { class: 'avatar ' + c.color }, initial),
+        el('div', {},
+          el('div', { style: 'font-weight: 500;' }, c.name),
+          el('div', { style: 'font-size: 0.78rem; color: var(--text-dim);' }, c.email)
+        ),
+        el('div', { style: 'font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);' }, c.orders + ' orders'),
+        el('div', { style: 'font-family: var(--font-mono); color: var(--rosso); font-weight: 500;' }, '$' + c.ltv.toLocaleString()),
+        el('span', { class: 'card-sub', style: 'color: ' + tierColor + ';' }, c.tier)
+      ));
+    });
+  };
+
+  // ---------- STAFF ----------
+  const renderStaff = () => {
+    const staff = [
+      { name: 'Marco Castelli',   role: 'Owner / Manager', phone: '(260) 422-1882', hours: 48, wage: '—',     status: 'active' },
+      { name: 'Sofia Castelli',   role: 'Owner / Pastry',  phone: '(260) 555-0102', hours: 44, wage: '—',     status: 'active' },
+      { name: 'Lia Hernández',    role: 'Lead barista',    phone: '(260) 555-0123', hours: 38, wage: '$22/h', status: 'active' },
+      { name: 'Tom Becker',       role: 'Barista',         phone: '(260) 555-0145', hours: 32, wage: '$18/h', status: 'active' },
+      { name: 'Anna Romano',      role: 'Barista',         phone: '(260) 555-0167', hours: 28, wage: '$18/h', status: 'active' },
+      { name: 'Jamie Wallace',    role: 'Barista',         phone: '(260) 555-0189', hours: 24, wage: '$17/h', status: 'active' },
+      { name: 'Diego Vasquez',    role: 'Pastry assistant',phone: '(260) 555-0202', hours: 30, wage: '$19/h', status: 'active' },
+      { name: 'Emma Schmidt',     role: 'Weekend lead',    phone: '(260) 555-0224', hours: 18, wage: '$20/h', status: 'active' },
+      { name: 'Riley Carter',     role: 'Catering driver', phone: '(260) 555-0246', hours: 14, wage: '$16/h', status: 'active' },
+      { name: 'Quinn Patel',      role: 'Barista (PT)',    phone: '(260) 555-0268', hours: 12, wage: '$17/h', status: 'leave' },
+      { name: "Sam O'Brien",      role: 'Dishwasher',      phone: '(260) 555-0280', hours: 24, wage: '$15/h', status: 'active' }
+    ];
+    const body = $('#staffBody'); clear(body);
+    staff.forEach(p => {
+      const tr = el('tr');
+      tr.appendChild(el('td', { style: 'font-weight: 500;' }, p.name));
+      tr.appendChild(el('td', { style: 'color: var(--text-soft); font-size: 0.85rem;' }, p.role));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);' }, p.phone));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono);' }, p.hours + 'h'));
+      tr.appendChild(el('td', { style: 'font-family: var(--font-mono); color: var(--rosso); font-size: 0.85rem;' }, p.wage));
+      tr.appendChild(el('td', {}, el('span', { class: 'pill pill-' + (p.status === 'active' ? 'complete' : 'pending') }, p.status === 'active' ? 'on roster' : 'on leave')));
+      body.appendChild(tr);
+    });
+  };
+
+  // ---------- SETTINGS ----------
+  const renderHours = () => {
+    const hours = [
+      ['Monday',    '6:30a', '6:00p'],
+      ['Tuesday',   '6:30a', '6:00p'],
+      ['Wednesday', '6:30a', '6:00p'],
+      ['Thursday',  '6:30a', '6:00p'],
+      ['Friday',    '6:30a', '6:00p'],
+      ['Saturday',  '7:00a', '5:00p'],
+      ['Sunday',    '8:00a', '3:00p']
+    ];
+    const form = $('#hoursForm'); clear(form);
+    hours.forEach(([day, open, close]) => {
+      const row = el('div', { style: 'display: grid; grid-template-columns: 110px 1fr 1fr; gap: 0.6rem; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border);' });
+      row.appendChild(el('span', { style: 'font-size: 0.88rem; font-weight: 500;' }, day));
+      row.appendChild(el('input', { value: open,  style: 'padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: 0.85rem;' }));
+      row.appendChild(el('input', { value: close, style: 'padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: 0.85rem;' }));
+      form.appendChild(row);
+    });
+  };
+
+  const renderIntegrations = () => {
+    const items = [
+      { name: 'Square POS',        status: 'connected',    detail: 'Card-present + register' },
+      { name: 'Stripe',            status: 'connected',    detail: 'Online checkout · Apple Pay' },
+      { name: 'Resend (email)',    status: 'connected',    detail: 'Order receipts + marketing' },
+      { name: 'Mailchimp',         status: 'disconnected', detail: 'Newsletter — not set up' },
+      { name: 'Google Analytics',  status: 'connected',    detail: 'GA4 · ID G-XXXXXXX' },
+      { name: 'QuickBooks',        status: 'disconnected', detail: 'Accounting sync — pending' }
+    ];
+    const list = $('#integrations'); clear(list);
+    items.forEach(i => {
+      list.appendChild(el('div', { style: 'display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border);' },
+        el('div', { style: 'flex: 1;' },
+          el('div', { style: 'font-weight: 500;' }, i.name),
+          el('div', { style: 'font-size: 0.78rem; color: var(--text-dim);' }, i.detail)
+        ),
+        el('span', { class: 'pill pill-' + (i.status === 'connected' ? 'complete' : 'cancel') }, i.status),
+        el('button', { class: 'btn btn-sm' }, i.status === 'connected' ? 'Configure' : 'Connect')
+      ));
+    });
+  };
+
+  // ---------- DATE STAMP ----------
+  const setHeaderDate = () => {
+    const d = new Date();
+    const opts = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
+    $('#pageDate').textContent = d.toLocaleDateString('en-US', opts);
+  };
+
+  // ---------- RESET ALL ----------
+  $('#resetAllBtn')?.addEventListener('click', () => {
+    if (!confirm('Reset menu edits, demo orders, and inventory state?')) return;
+    localStorage.removeItem(MENU_KEY);
+    localStorage.removeItem('fortezzaCart');
+    location.reload();
+  });
+
+  // ---------- INIT ----------
+  setHeaderDate();
+  renderDashChart();
+  renderTopItems();
+  renderRecentOrders();
+  renderActivity();
+  renderOrders();
+  renderMenuCategories();
+  renderMenuItems();
+  renderCalendar();
+  renderEventsList();
+  renderInventory();
+  renderAnalyticsChart();
+  renderCategoryDonut();
+  renderHeatmap();
+  renderTopRevenue();
+  renderPL();
+  renderInvoices();
+  renderCustomers();
+  renderStaff();
+  renderHours();
+  renderIntegrations();
+})();
+</script>
+</body>
+</html>
