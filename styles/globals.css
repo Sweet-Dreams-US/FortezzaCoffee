@@ -317,39 +317,28 @@ h1, h2, h3, h4 { font-weight: 400; }
   .nav.on-hero .nav-link,
   .nav.on-hero.scrolled .nav-link { color: var(--text); }
 
-  /* Brand becomes a small "F" monogram badge — keeps the heraldic identity
-     in the nav without the wordmark eating space on a phone. */
+  /* Brand becomes the actual Fortezza badge — small circular logo image
+     in place of the wordmark.  background-image + border-radius:50%
+     clips the JPG's white square corners into a clean circle (same
+     trick used on the hero badge). */
   .nav-brand {
     position: relative;
     left: auto; top: auto; transform: none;
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: var(--blu);
-    color: var(--rosso);
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: 1px solid var(--blu);
+    background: var(--cream) url('../assets/logo.jpg') center / cover no-repeat;
+    border: 1px solid var(--border);
     flex-shrink: 0;
-    /* Hide the original "FORTEZZA" wordmark text via clip + replacement char */
+    padding: 0;
+    /* Hide the underlying "FORTEZZA" wordmark text */
     overflow: hidden;
-    text-indent: -999px;
+    text-indent: -9999px;
+    line-height: 1;
+    display: inline-block;
+    box-shadow: 0 1px 3px rgba(10, 27, 64, 0.18);
   }
-  .nav-brand::before {
-    content: 'F';
-    text-indent: 0;
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    color: var(--rosso);
-  }
+  .nav-brand::before,
   .nav-brand::after { display: none; }
 
   /* Link row sits on the right, takes remaining space, evenly distributed */
