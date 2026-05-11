@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="assets/admin-favicon.svg" />
 
 <style>
   /* FORTEZZA ADMIN — back-of-house console.  Self-contained styles. */
@@ -111,6 +111,21 @@
     text-transform: uppercase;
     color: rgba(252, 250, 244, 0.4);
     padding: 1.4rem 1.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .admin-section-label .sect-diamond {
+    color: var(--gold);
+    font-size: 0.7rem;
+    line-height: 1;
+    opacity: 0.85;
+  }
+  .admin-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(252, 250, 244, 0.12), transparent);
   }
   .admin-nav { flex: 1; overflow-y: auto; padding-bottom: 1rem; }
   .admin-tab {
@@ -212,7 +227,70 @@
     font-weight: 600;
     letter-spacing: 0.005em;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
   }
+  /* Glyph that echoes the active tab's icon — recolors per route via JS */
+  .admin-header-title .page-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--rosso);
+    color: var(--rosso);
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1;
+    padding-bottom: 1px;
+    background: rgba(220, 38, 38, 0.06);
+  }
+
+  /* Glyph legend (Settings tab) — staff-onboarding key for the icon system */
+  .glyph-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+  }
+  .glyph-legend > div {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: var(--r-sm);
+    transition: background 0.15s;
+  }
+  .glyph-legend > div:hover { background: var(--surface-2); }
+  .glyph-legend .lg-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    line-height: 1;
+    color: var(--blu);
+    padding-bottom: 1px;
+    flex-shrink: 0;
+  }
+  .glyph-legend .lg-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .glyph-legend .lg-meaning {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  @media (max-width: 880px) { .glyph-legend { grid-template-columns: 1fr; } }
   .admin-header-title .crumb {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -804,7 +882,7 @@
     </div>
   </div>
 
-  <div class="admin-section-label">Operations</div>
+  <div class="admin-section-label"><span class="sect-diamond" aria-hidden="true">◇</span> Operations</div>
   <nav class="admin-nav" id="adminNav">
     <a class="admin-tab is-active" data-tab="dashboard" href="#dashboard">
       <span class="admin-tab-glyph" aria-hidden="true">◎</span>
@@ -829,7 +907,7 @@
       Inventory
     </a>
 
-    <div class="admin-section-label">Insight</div>
+    <div class="admin-section-label"><span class="sect-diamond" aria-hidden="true">◇</span> Insight</div>
     <a class="admin-tab" data-tab="analytics" href="#analytics">
       <span class="admin-tab-glyph" aria-hidden="true">⌃</span>
       Analytics
@@ -843,7 +921,7 @@
       Customers
     </a>
 
-    <div class="admin-section-label">System</div>
+    <div class="admin-section-label"><span class="sect-diamond" aria-hidden="true">◇</span> System</div>
     <a class="admin-tab" data-tab="staff" href="#staff">
       <span class="admin-tab-glyph" aria-hidden="true">☉</span>
       Staff
@@ -871,7 +949,10 @@
 
   <header class="admin-header">
     <div class="admin-header-title">
-      <h1 id="pageTitle">Dashboard</h1>
+      <h1 id="pageTitle">
+        <span class="page-glyph" id="pageGlyph" aria-hidden="true">◎</span>
+        <span id="pageTitleText">Dashboard</span>
+      </h1>
       <span class="crumb" id="pageDate"></span>
     </div>
     <div class="admin-header-actions">
@@ -1365,6 +1446,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Icon legend — staff onboarding reference for the glyph system -->
+    <div class="card" style="margin-top: 1rem;">
+      <div class="card-header">
+        <div class="card-title">Icon legend</div>
+        <span class="card-sub">Sidebar glyph key</span>
+      </div>
+      <div class="card-body">
+        <div class="glyph-legend" id="glyphLegend"></div>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -1403,11 +1495,25 @@
     inventory: 'Inventory', analytics: 'Analytics', accounting: 'Accounting',
     customers: 'Customers', staff: 'Staff', settings: 'Settings'
   };
+  // One source of truth for the glyph system — used by setTab and renderGlyphLegend
+  const GLYPHS = {
+    dashboard:  { g: '◎', meaning: 'Overview ring' },
+    orders:     { g: '◐', meaning: 'In progress' },
+    menu:       { g: '☰', meaning: 'List / menu' },
+    events:     { g: '◇', meaning: 'Heraldic lozenge' },
+    inventory:  { g: '▦', meaning: 'Stock grid' },
+    analytics:  { g: '⌃', meaning: 'Trend up' },
+    accounting: { g: '$', meaning: 'Currency' },
+    customers:  { g: '◉', meaning: 'Loyal core' },
+    staff:      { g: '☉', meaning: 'Sun / team' },
+    settings:   { g: '⚙', meaning: 'Gear' }
+  };
   const setTab = (tab) => {
     if (!TABS.includes(tab)) tab = 'dashboard';
     $$('.admin-tab').forEach(t => t.classList.toggle('is-active', t.dataset.tab === tab));
     $$('.admin-panel').forEach(p => p.classList.toggle('is-active', p.id === 'panel-' + tab));
-    $('#pageTitle').textContent = TITLES[tab];
+    $('#pageTitleText').textContent = TITLES[tab];
+    $('#pageGlyph').textContent = GLYPHS[tab].g;
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
   window.addEventListener('hashchange', () => setTab(location.hash.slice(1)));
@@ -1994,6 +2100,25 @@
     });
   };
 
+  // ---------- GLYPH LEGEND (Settings tab) ----------
+  // Builds an at-a-glance icon-key from the same GLYPHS map setTab uses,
+  // so the sidebar icons stay in sync with this legend automatically.
+  const renderGlyphLegend = () => {
+    const wrap = $('#glyphLegend');
+    if (!wrap) return;
+    clear(wrap);
+    TABS.forEach(tab => {
+      const meta = GLYPHS[tab];
+      wrap.appendChild(el('div', {},
+        el('span', { class: 'lg-glyph' }, meta.g),
+        el('div', {},
+          el('div', { class: 'lg-name' }, TITLES[tab]),
+          el('div', { class: 'lg-meaning' }, meta.meaning)
+        )
+      ));
+    });
+  };
+
   // ---------- DATE STAMP ----------
   const setHeaderDate = () => {
     const d = new Date();
@@ -2031,6 +2156,7 @@
   renderStaff();
   renderHours();
   renderIntegrations();
+  renderGlyphLegend();
 })();
 </script>
 </body>
