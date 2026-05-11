@@ -133,6 +133,26 @@
     border-left-color: var(--rosso);
   }
   .admin-tab-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.85; }
+  /* Unicode-glyph icons — typographic, sized to match the icon slot exactly.
+     Inherit color so active/hover state recolors for free. */
+  .admin-tab-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.78;
+    font-weight: 400;
+    /* Tiny adjustment so glyphs like $ and ⚙ sit on the same baseline as ◎/◐ */
+    padding-bottom: 1px;
+  }
+  .admin-tab.is-active .admin-tab-glyph { opacity: 1; color: var(--rosso); }
+  .admin-tab:hover .admin-tab-glyph { opacity: 1; }
   .admin-tab .admin-tab-badge {
     margin-left: auto;
     background: var(--rosso);
@@ -755,6 +775,9 @@
       background: rgba(252, 250, 244, 0.08);
     }
     .admin-tab-icon { display: none; }
+    /* Keep glyphs on mobile — they're one character so they don't crowd
+       the horizontal scroll bar like full SVGs would. */
+    .admin-tab-glyph { width: 16px; height: 16px; font-size: 0.95rem; margin-right: 2px; }
     .admin-tab-badge { display: none; }
     .admin-sidebar-footer { display: none; }
     .admin-header { padding: 0 1rem; }
@@ -784,49 +807,49 @@
   <div class="admin-section-label">Operations</div>
   <nav class="admin-nav" id="adminNav">
     <a class="admin-tab is-active" data-tab="dashboard" href="#dashboard">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">◎</span>
       Dashboard
     </a>
     <a class="admin-tab" data-tab="orders" href="#orders">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">◐</span>
       Orders
       <span class="admin-tab-badge" id="ordersBadge">7</span>
     </a>
     <a class="admin-tab" data-tab="menu" href="#menu">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">☰</span>
       Menu Editor
     </a>
     <a class="admin-tab" data-tab="events" href="#events">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">◇</span>
       Events
       <span class="admin-tab-badge">3</span>
     </a>
     <a class="admin-tab" data-tab="inventory" href="#inventory">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">▦</span>
       Inventory
     </a>
 
     <div class="admin-section-label">Insight</div>
     <a class="admin-tab" data-tab="analytics" href="#analytics">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">⌃</span>
       Analytics
     </a>
     <a class="admin-tab" data-tab="accounting" href="#accounting">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">$</span>
       Accounting
     </a>
     <a class="admin-tab" data-tab="customers" href="#customers">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">◉</span>
       Customers
     </a>
 
     <div class="admin-section-label">System</div>
     <a class="admin-tab" data-tab="staff" href="#staff">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">☉</span>
       Staff
     </a>
     <a class="admin-tab" data-tab="settings" href="#settings">
-      <svg class="admin-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span class="admin-tab-glyph" aria-hidden="true">⚙</span>
       Settings
     </a>
   </nav>
